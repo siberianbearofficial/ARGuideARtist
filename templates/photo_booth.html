@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block body %}
+    <!-- Ask user for camera permissions, display some text if permission is denied -->
+    <a-entity zappar-permissions-ui id="permissions">
+      <!-- Remove the text entity to use Zappar's default permission denied UI -->
+      <a-entity text="value: Please reload the page, accepting the camera permissions." position="0 0 -2"></a-entity>
+    </a-entity>
+    <a-entity camera zappar-camera="user-facing: true;">
+    </a-entity>
+
+    <a-entity zappar-face id="my-face-tracker">
+      <a-entity visible="true" id="facemesh0" geometry="primitive: face-mesh; face: #my-face-tracker; fill-mouth: false; fill-eye-left: false; fill-eye-right: false;" material="src: /static/masks/mask_1.png; transparent: true;"></a-entity>
+      <a-entity visible="false" id="facemesh1" geometry="primitive: face-mesh; face: #my-face-tracker; fill-mouth: false; fill-eye-left: false; fill-eye-right: false;" material="src: /static/masks/mask_2.png; transparent: true;"></a-entity>
+      <a-entity visible="false" id="facemesh2" geometry="primitive: face-mesh; face: #my-face-tracker; fill-mouth: false; fill-eye-left: false; fill-eye-right: false;" material="src: /static/masks/mask_3.png; transparent: true;"></a-entity>
+      <a-entity visible="false" id="facemesh3" geometry="primitive: face-mesh; face: #my-face-tracker; fill-mouth: false; fill-eye-left: false; fill-eye-right: false;" material="src: https://cdn.glitch.global/d64b43ff-a6e2-42b7-bf7d-11baf87d2800/new_year_stars.png?v=1641486395512; transparent: true;"></a-entity>
+
+      <a-entity geometry="primitive: plane" material="src: https://cdn.glitch.global/d64b43ff-a6e2-42b7-bf7d-11baf87d2800/button-right.png?v=1641479761303; transparent: true;" position="0.5 -1.5 0" scale="0.5 0.5 0.5" data-clickable onclick="OnRightButtonClick()"></a-entity>
+      <a-entity geometry="primitive: plane" material="src: https://cdn.glitch.global/d64b43ff-a6e2-42b7-bf7d-11baf87d2800/button-left.png?v=1641479761335; transparent: true;" position="-0.5 -1.5 0" scale="0.5 0.5 0.5" data-clickable onclick="OnLeftButtonClick()"></a-entity>
+    </a-entity>
+{% endblock body %}
+{% block scripts %}
+    <script>
+        var current = 0;
+        var count_of_masks = 4;
+        function OnRightButtonClick() {
+          if (current < count_of_masks - 1) {
+            current++;
+            document.getElementById('facemesh' + current).setAttribute("visible", true);
+            document.getElementById('facemesh' + (current-1)).setAttribute("visible", false);
+          }
+        }
+        function OnLeftButtonClick() {
+          if (current > 0) {
+            current--;
+            document.getElementById('facemesh' + current).setAttribute("visible", true);
+            document.getElementById('facemesh' + (current+1)).setAttribute("visible", false);
+          }
+        }
+    </script>
+{% endblock scripts %}
