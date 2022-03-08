@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, render_template
+from emulate_db_response import get_photos_from_db
 
 app = Flask(__name__)
 
@@ -10,7 +11,12 @@ def hello_world():
 
 @app.route('/test')
 def test_func():
-    return 'Hello test'
+    return render_template('gallery.html')
+
+
+@app.route('/get_gallery_photos')
+def get_gallery_photos():
+    return get_photos_from_db()
 
 
 if __name__ == '__main__':
