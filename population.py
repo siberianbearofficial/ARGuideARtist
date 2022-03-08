@@ -14,7 +14,5 @@ DBSession = sessionmaker(bind=engine)
 # загруженных в объект сессии базы данных.
 session = DBSession()
 
-bookOne = Book(title="Чистый Python", author="Дэн Бейде", genre="компьютерная литература")
-session.add(bookOne)
-session.commit()
+session.query(Book).all()
 session.close()

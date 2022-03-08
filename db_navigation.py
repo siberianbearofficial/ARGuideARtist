@@ -1,11 +1,22 @@
-import sqlalchemy
-from sqlalchemy_serializer import SerializerMixin
-from data.db_session import SqlAlchemyBase
-from data.item import Item
-from data import db_session
+import sys
+# для настройки баз данных
+from sqlalchemy import Column, ForeignKey, Integer, String
 
-session = db_session.create_session()
-item = Item()
-session.add(item)
-session.commit()
-session.close()
+# для определения таблицы и модели
+from sqlalchemy.ext.declarative import declarative_base
+
+# для создания отношений между таблицами
+from sqlalchemy.orm import relationship
+
+# для настроек
+from sqlalchemy import create_engine
+
+# создание экземпляра declarative_base
+Base = declarative_base()
+
+# здесь добавим классы
+
+# создает экземпляр create_engine в конце файла
+engine = create_engine('sqlite:///argid.db')
+
+Base.metadata.create_all(engine)

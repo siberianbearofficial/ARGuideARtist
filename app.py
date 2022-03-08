@@ -2,12 +2,15 @@ from flask import Flask, render_template
 import config
 from emulate_db_response import get_photos_from_db
 from data import db_session
+from one import create
 db_session.global_init("db/argid.sqlite")
 app = Flask(__name__)
 app.config.from_object(config)
 
+
 @app.route('/')
 def hello_world():
+    create()
     return 'Hello World my test file'
 
 
