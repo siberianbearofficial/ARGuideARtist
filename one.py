@@ -7,5 +7,11 @@ from data.item import Item
 
 def create():
     session = db_session.create_session()
-    session.query().all()
+    bookOne = Item()
+    bookOne.name = 'mama'
+    bookOne.count = 155
+    bookOne.price = 155
+    session.add(bookOne)
+    session.commit()
+    session.close()
 
