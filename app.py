@@ -3,6 +3,8 @@ import config
 from emulate_db_response import get_photos_from_db
 from data import db_session
 from one import create
+
+
 db_session.global_init("db/argid.sqlite")
 app = Flask(__name__)
 app.config.from_object(config)
@@ -17,6 +19,11 @@ def hello_world():
 @app.route('/test')
 def test_func():
     return render_template('gallery.html')
+
+
+@app.route('/photo_booth')
+def test_func():
+    return render_template('photo_booth.html')
 
 
 @app.route('/get_gallery_photos')
