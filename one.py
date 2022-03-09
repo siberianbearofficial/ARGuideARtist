@@ -6,6 +6,7 @@ from data.marker import Marker
 from data.routs import Rout
 from data.navigation import Navigation
 from data.navigation_routs import Navigations_rout
+from json import dumps
 
 
 # def create():
@@ -88,21 +89,23 @@ def get_navigation_r():
 
     return navigation_r_list
 
-def get_naprav():
-    c = []
+def get_naprav(A, B):
+    A, B = A - 1, B - 1
     nv = get_navigations()
-
-    for i in range(len(nv)):
-        result_list = [v for k,v in nv[i].items()]
-        for j in result_list:
-            if j == result_list[1]:
-                c.append(j)
-
-    return c
+    try:
+        for i in range(len(nv)):
+            result_list = [v for k,v in nv[i].items()]
+            for j in result_list:
+                if j == result_list[2] and j == A:
+                    for z in result_list:
+                        if z == result_list[3] and z == B:
+                            a = result_list[1]
+        return a
+    except:
+        print('ошибка')
 
 def get_marsh():
     c1 = []
-    c2 = []
     r = get_routs()
 
     for i in range(len(r)):
@@ -110,8 +113,6 @@ def get_marsh():
         for j in res_ls:
             if j == res_ls[1]:
                 c1.append(j)
-            if j == res_ls[0]:
-                c2.append(j)
 
-    return c1, c2
+    return dumps(c1)
 

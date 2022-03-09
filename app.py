@@ -37,10 +37,13 @@ def photo_booth():
 def get_gallery_photos():
     return get_photos_from_db()
 
-@app.route('/marsh/<A>/<B>')
-def marsh(A,B):
-    print(get_naprav(A,B))
-    return " "
+@app.route('/navigation/<A>/<B>')
+def navigation(A, B):
+    return get_naprav(int(A), int(B))
+
+@app.route('/marsh')
+def marsh():
+    return get_marsh()
 
 if __name__ == '__main__':
     app.run()
