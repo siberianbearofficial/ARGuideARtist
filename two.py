@@ -3,19 +3,7 @@ import sqlalchemy
 from sqlalchemy_serializer import SerializerMixin
 from data.db_session import SqlAlchemyBase
 from data import db_session
-
-def get_rec():
-    session = db_session.create_session()
-    records = session.query(Records).all()
-
-    rec_list = list()
-    for rec in records:
-        item_dict = {'id': rec.id, 'time': rec.time, 'exibitId': rec.exibitId, 'timeSpentInFrontSec': rec.timeSpentInFrontSec,
-                     'visualFeedback': rec.visualFeedback, 'description': rec.description, 'completeness': rec.completeness}
-        rec_list.append(item_dict)
-
-    session.close()
-    return rec_list
+from one import get_rec
 
 def sec_exp():
     rec = get_rec()
@@ -174,13 +162,16 @@ def pos_exp():
                 for z in result_list:
                     if z == result_list[1]:
                         exp8.append(z)
-    c = {'Exp 1': int(len(exp1)/7),
-         'Exp 2': int(len(exp2)/7),
-         'Exp 3': int(len(exp3)/7),
-         'Exp 4': int(len(exp4)/7),
-         'Exp 5': int(len(exp5)/7),
-         'Exp 6': int(len(exp6)/7),
-         'Exp 7': int(len(exp7)/7),
-         'Exp 8': int(len(exp8)/7)}
+    c = {'Exp 1': int(len(exp1)),
+         'Exp 2': int(len(exp2)),
+         'Exp 3': int(len(exp3)),
+         'Exp 4': int(len(exp4)),
+         'Exp 5': int(len(exp5)),
+         'Exp 6': int(len(exp6)),
+         'Exp 7': int(len(exp7)),
+         'Exp 8': int(len(exp8))}
 
     return c
+
+def pos_zal():
+    pass

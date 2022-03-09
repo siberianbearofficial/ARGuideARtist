@@ -9,3 +9,5 @@ class Marker(SqlAlchemyBase, SerializerMixin):
     marker = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     exp_name = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     info = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    room_id = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    visiting_id = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)

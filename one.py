@@ -6,6 +6,7 @@ from data.marker import Marker
 from data.routs import Rout
 from data.navigation import Navigation
 from data.navigation_routs import Navigations_rout
+from data.rooms import Rooms
 from data.records import Records
 from json import dumps
 
@@ -20,6 +21,18 @@ from json import dumps
     # session.commit()
     # session.close()
 
+def rooms():
+    session = db_session.create_session()
+    room = session.query(Rooms).all()
+
+    room_ls = list()
+    for rm in room:
+        item_dict = {'id': rm.id, 'room_name': rm.room_name}
+        room_ls.append(item_dict)
+
+    session.close()
+    return room_ls
+
 
 def get_markers():
     session = db_session.create_session()
@@ -27,7 +40,7 @@ def get_markers():
 
     markers_list = list()
     for mrk in markers:
-        item_dict = {'id': mrk.id, 'marker': mrk.marker, 'exp_name': mrk.exp_name, 'info': mrk.info}
+        item_dict = {'id': mrk.id, 'marker': mrk.marker, 'exp_name': mrk.exp_name, 'info': mrk.info,'room_id': mrk.room_id, 'visiting_id': mrk.visiting_id}
         markers_list.append(item_dict)
 
     session.close()
@@ -76,6 +89,18 @@ def get_navigations():
 #
 #     return navigation_r_list
 
+def get_rec():
+    session = db_session.create_session()
+    records = session.query(Records).all()
+
+    rec_list = list()
+    for rec in records:
+        item_dict = {'id': rec.id, 'time': rec.time, 'exibitId': rec.exibitId, 'timeSpentInFrontSec': rec.timeSpentInFrontSec,
+                     'visualFeedback': rec.visualFeedback, 'description': rec.description, 'completeness': rec.completeness}
+        rec_list.append(item_dict)
+
+    session.close()
+    return rec_list
 
 def get_navigation_r():
     session = db_session.create_session()
