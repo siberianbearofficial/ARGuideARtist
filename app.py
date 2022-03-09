@@ -38,7 +38,7 @@ def get_gallery_photos():
     return get_photos_from_db()
 
 @app.route('/marsh/<A>/<B>')
-def test_func(A,B):
+def marsh(A,B):
     print(get_naprav(A,B))
     return " "
 
