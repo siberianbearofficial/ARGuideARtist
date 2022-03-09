@@ -3,6 +3,8 @@ import config
 from emulate_db_response import get_photos_from_db
 from data import db_session
 from one import get_markers, get_routs, get_navigations, get_navigation_r, get_naprav, get_marsh
+from two import sec_exp, like_exp, pos_exp
+from json import dumps
 
 
 db_session.global_init("db/argid.sqlite")
@@ -49,6 +51,14 @@ def navigation(A, B):
 @app.route('/marsh')
 def marsh():
     return get_marsh()
+
+@app.route('/admin_statistic')
+def second_exp():
+    return sec_exp() #служебная статистка
+
+@app.route('/statistic')
+def second_exp():
+    return dumps([like_exp(), pos_exp()]) #пользовательская статистика
 
 if __name__ == '__main__':
     app.run()
