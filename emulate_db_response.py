@@ -8,7 +8,7 @@ video_base_url = '/static/gallery/videos/video ({0}).mp4'
 gallery_list = list()
 
 
-for i in range(1, 2):
+for i in range(1, 10):
     gallery_list.append(video_base_url.format(i))
 
 for i in range(1, 38):

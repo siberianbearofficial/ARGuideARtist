@@ -26,6 +26,20 @@
 
 {% block scripts %}
     <script>
+        // All routes:
+        var all_routes = null;
+        fetch("/marsh").then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            console.log(data);
+            all_routes = data;
+        }).catch(function () {
+            console.log("Error");
+        });
+
+        console.log(all_routes);
+    </script>
+    <script>
         // Gallery:
         var galleryVideoContainer = document.getElementById('galleryvideo');
         var galleryPhotoContainer = document.getElementById("galleryphoto");
@@ -33,7 +47,7 @@
         // Loading gallery photos:
         var gallery_photos = null;
 
-        fetch("/get_gallery_photos").then(function (response) {
+        /*fetch("/get_gallery_photos").then(function (response) {
             return response.json();
         }).then(function (data) {
             console.log(data);
@@ -41,7 +55,7 @@
             {#galleryPhotoContainer.setAttribute('material', 'src', 'url(' + gallery_photos[0] + ')');#}
         }).catch(function () {
             console.log("Error");
-        });
+        });*/
 
         var current3 = 0;  // counter
 
