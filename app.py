@@ -28,6 +28,11 @@ def test_func():
     return render_template('gallery.html')
 
 
+@app.route('/testtest')
+def testtest_func():
+    return render_template('testtest.html')
+
+
 @app.route('/photo_booth')
 def photo_booth():
     return render_template('photo_booth.html')

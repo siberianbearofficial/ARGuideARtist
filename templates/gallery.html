@@ -12,7 +12,7 @@
     </a-assets>
 
 		<!-- Image tracking: -->
-		<a-entity zappar-image="target: ../static/markers/marker.zpt" id="my-image-tracker">
+		<a-entity zappar-image="target: /static/markers/marker1.zpt" id="my-image-tracker">
 {#      <!-- Gift: -->#}
 {#			<a-entity gltf-model="#gift-model" rotation="0 0 0" scale="0.4 0.4 0.4" position="0 0.1 0"></a-entity>#}
 
@@ -21,7 +21,7 @@
 {#      <a-entity id="lights1" visible="false" geometry="primitive: plane; width: 0.89; height: 0.265;" material="src: https://cdn.glitch.global/10b70c6a-bfb7-4913-b34c-03a8a1c5eeed/lights1.png?v=1641492166807; transparent: true;" position="1.1 0.65 0" rotation="0 0 -45"></a-entity>#}
 {#      <a-entity id="lights2" visible="false" geometry="primitive: plane; width: 0.89; height: 0.265;" material="src: https://cdn.glitch.global/10b70c6a-bfb7-4913-b34c-03a8a1c5eeed/lights2.png?v=1641492166761; transparent: true;" position="1.1 0.65 0" rotation="0 0 -45"></a-entity>#}
 
-      <a-entity id="galleryphoto" material="src: #test_texture" geometry="primitive: plane; width: 16; height: 9;" position="0 0 0" rotation="0 0 0"></a-entity>
+      <a-entity id="galleryphoto" material="src: #test_texture" geometry="primitive: plane; width: 11.2; height: 6.3;" position="0 0 0" rotation="0 0 0"></a-entity>
 
 {#      <a-entity geometry="primitive: plane; width: 0.3; height: 0.3;" material="src: https://cdn.glitch.global/10b70c6a-bfb7-4913-b34c-03a8a1c5eeed/button-refresh.png?v=1641492134128; transparent: true;" position="1.65 0.8 0" data-clickable onclick="OnLightsButtonClick()"></a-entity>#}
 
@@ -57,7 +57,7 @@
 
         // Gallery:
         var galleryPhotoContainer = document.getElementById("galleryphoto");
-        var testTexture = document.getElementById("test_texture");
+        {#var testTexture = document.getElementById("test_texture");#}
         var current3 = 0;
         function OnNextGalleryButtonClick() {
             {#let galleryPhoto = galleryPhotoContainer.cloneNode(true);#}
