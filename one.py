@@ -5,6 +5,7 @@ from data import db_session
 from data.marker import Marker
 from data.routs import Rout
 from data.navigation import Navigation
+from data.navigation_routs import Navigations_rout
 
 
 # def create():
@@ -58,3 +59,17 @@ def get_navigations():
     session.close()
 
     return navigations_list
+
+def get_navigation_r():
+    session = db_session.create_session()
+    navigation = session.query(Navigations_rout).all()
+
+    navigation_r_list = list()
+    for nvr in navigation:
+        item_dict = {'id': nvr.id, 'routs_id': nvr.routs_id, 'navigation': nvr.navigation}
+        navigation_r_list.append(item_dict)
+
+    session.close()
+
+    return navigation_r_list
+
