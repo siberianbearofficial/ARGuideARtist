@@ -2,7 +2,7 @@ from flask import Flask, render_template
 import config
 from emulate_db_response import get_photos_from_db
 from data import db_session
-from one import get_markers, get_routs, get_navigations, get_navigation_r
+from one import get_markers, get_routs, get_navigations, get_navigation_r, get_naprav, get_marsh
 
 
 db_session.global_init("db/argid.sqlite")
@@ -37,6 +37,10 @@ def photo_booth():
 def get_gallery_photos():
     return get_photos_from_db()
 
+@app.route('/marsh/<A>/<B>')
+def marsh(A,B):
+    print(get_naprav(A,B))
+    return " "
 
 if __name__ == '__main__':
     app.run()
