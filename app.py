@@ -19,6 +19,7 @@ def hello_world():
     print(markers)
     print(routs)
     print(navigations)
+    print(navigations_r)
     return 'Hello World my test file'
 
 
