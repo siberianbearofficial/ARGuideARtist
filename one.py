@@ -39,7 +39,7 @@ def get_routs():
 
     routs_list = list()
     for rt in routs:
-        item_dict = {'id': rt.id, 'routs': rt.routs}
+        item_dict = {'id': rt.id, 'routs': rt.routs, 'name_routs': rt.name_routs}
         routs_list.append(item_dict)
 
     session.close()
@@ -87,4 +87,31 @@ def get_navigation_r():
     session.close()
 
     return navigation_r_list
+
+def get_naprav():
+    c = []
+    nv = get_navigations()
+
+    for i in range(len(nv)):
+        result_list = [v for k,v in nv[i].items()]
+        for j in result_list:
+            if j == result_list[1]:
+                c.append(j)
+
+    return c
+
+def get_marsh():
+    c1 = []
+    c2 = []
+    r = get_routs()
+
+    for i in range(len(r)):
+        res_ls = [v for k,v in r[i].items()]
+        for j in res_ls:
+            if j == res_ls[1]:
+                c1.append(j)
+            if j == res_ls[0]:
+                c2.append(j)
+
+    return c1, c2
 
