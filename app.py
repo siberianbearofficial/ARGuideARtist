@@ -94,7 +94,7 @@ def exposition():
 
 
 @app.route('/get_marker')
-def exposition():
+def get_marker():
     return get_list_of_markers()
 
 
@@ -126,6 +126,11 @@ def marsh():
 @app.route('/admin_statistic')
 def adm_stat():
     return sec_exp()  # служебная статистка
+
+
+@app.route('/test_admin_statistic')
+def test_adm_stat():
+    return '{"Exp 1":"Max: 538   Min: 61  Sr: 268.88146426496223","Exp 2":"Max: 658   Min: 122  Sr: 374.86247216035633","Exp 3":"Max: 538   Min: 61  Sr: 266.76745329400194","Exp 4":"Max: 538   Min: 61  Sr: 264.8294342832837","Exp 5":"Max: 539   Min: 61  Sr: 271.0042656916514","Exp 6":"Max: 659   Min: 121  Sr: 378.04987320371936","Exp 7":"Max: 659   Min: 122  Sr: 384.47377326565146","Exp 8":"Max: 539   Min: 61  Sr: 267.6633081444165"}'
 
 
 @app.route('/statistic')
