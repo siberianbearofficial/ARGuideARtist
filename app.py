@@ -94,7 +94,7 @@ def exposition():
 
 
 @app.route('/get_marker')
-def exposition():
+def get_marker():
     return get_list_of_markers()
 
 
@@ -128,9 +128,19 @@ def adm_stat():
     return sec_exp()  # служебная статистка
 
 
+@app.route('/test_admin_statistic')
+def test_adm_stat():
+    return '{"Exp 1":"Max: 538   Min: 61  Sr: 268.88146426496223","Exp 2":"Max: 658   Min: 122  Sr: 374.86247216035633","Exp 3":"Max: 538   Min: 61  Sr: 266.76745329400194","Exp 4":"Max: 538   Min: 61  Sr: 264.8294342832837","Exp 5":"Max: 539   Min: 61  Sr: 271.0042656916514","Exp 6":"Max: 659   Min: 121  Sr: 378.04987320371936","Exp 7":"Max: 659   Min: 122  Sr: 384.47377326565146","Exp 8":"Max: 539   Min: 61  Sr: 267.6633081444165"}'
+
+
 @app.route('/statistic')
 def pol_stat():
     return dumps([like_exp(), pos_exp()])  # пользовательская статистика
+
+
+@app.route('/test_statistic')
+def pol_test_stat():
+    return '[{"Exp 1": "Sr: 3.103234553554135", "Exp 2": "Sr: 3.250556792873051", "Exp 3": "Sr: 3.0658800393313665", "Exp 4": "Sr: 3.4887282007656317", "Exp 5": "Sr: 3.216737761527524", "Exp 6": "Sr: 3.0808678500986195", "Exp 7": "Sr: 2.8639570985040925", "Exp 8": "Sr: 3.0848026868178002"}, {"Exp 1": 1721, "Exp 2": 1796, "Exp 3": 2034, "Exp 4": 2351, "Exp 5": 1641, "Exp 6": 1183, "Exp 7": 1181, "Exp 8": 1191}]'  # пользовательская статистика
 
 
 if __name__ == '__main__':
