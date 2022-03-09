@@ -1,18 +1,27 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-# импортируем классы Book и Base из файла database_setup.py
-from db_navigation import Book, Base
+from data import db_session
+from one import get_markers, get_routs, get_navigations, get_navigation_r
 
-engine = create_engine('sqlite:///books-collection.db')
-# Свяжим engine с метаданными класса Base,
-# чтобы декларативы могли получить доступ через экземпляр DBSession
-Base.metadata.bind = engine
+db_session.global_init("db/argid.sqlite")
+nv = get_navigations()
 
-DBSession = sessionmaker(bind=engine)
-# Экземпляр DBSession() отвечает за все обращения к базе данных
-# и представляет «промежуточную зону» для всех объектов,
-# загруженных в объект сессии базы данных.
-session = DBSession()
+l = 'left'
+r = 'right'
+u = 'up'
+d = 'down'
 
-session.query(Book).all()
-session.close()
+for i in range(len(nv)):
+    result_list = [v for k,v in nv[i].items()]
+    for j in result_list:
+        if j == result_list[1]:
+            print('--------')
+            for _ in j:
+                if _ == 'l':
+                    print(l)
+                if _ == 'r':
+                    print(r)
+                if _ == 'u':
+                    print(u)
+                if _ == 'd':
+                    print(d)
+            print('--------')
+
