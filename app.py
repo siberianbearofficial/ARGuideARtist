@@ -32,6 +32,11 @@ def test_func():
     return render_template('gallery.html')
 
 
+@app.route('/test_video')
+def test_video_func():
+    return render_template('test_video.html')
+
+
 @app.route('/testtest')
 def testtest_func():
     return render_template('testtest.html')
