@@ -7,7 +7,7 @@
 {#      <a-asset-item id="gift-model" src="https://cdn.glitch.global/10b70c6a-bfb7-4913-b34c-03a8a1c5eeed/gift.gltf?v=1641492133796"></a-asset-item>#}
 {#    </a-assets>#}
 
-    <a-assets>
+    <a-assets id="assets_id">
         <img id="test_texture" src="/static/gallery/photos/photo (1).jpg">
     </a-assets>
 
@@ -22,7 +22,7 @@
 {#      <a-entity id="lights2" visible="false" geometry="primitive: plane; width: 0.89; height: 0.265;" material="src: https://cdn.glitch.global/10b70c6a-bfb7-4913-b34c-03a8a1c5eeed/lights2.png?v=1641492166761; transparent: true;" position="1.1 0.65 0" rotation="0 0 -45"></a-entity>#}
 
       <a-entity id="galleryphoto" material="src: #test_texture" geometry="primitive: plane; width: 11.2; height: 6.3;" position="0 0 0" rotation="0 0 0"></a-entity>
-
+      <a-video id="vid" src="../static/gallery/videos/video (1).mp4" crossOrigin="anonymous" muted loop="true" width="11.2" height="6.3" position="0 0 0" rotation="0 0 0"></a-video>
 {#      <a-entity geometry="primitive: plane; width: 0.3; height: 0.3;" material="src: https://cdn.glitch.global/10b70c6a-bfb7-4913-b34c-03a8a1c5eeed/button-refresh.png?v=1641492134128; transparent: true;" position="1.65 0.8 0" data-clickable onclick="OnLightsButtonClick()"></a-entity>#}
 
       <!-- Congrats: -->
@@ -51,14 +51,38 @@
         }).then(function(data) {
           console.log(data);
           gallery_photos = data;
+
+          startVideoPlayback();
+          {#galleryPhotoContainer.setAttribute('material', 'src', 'url(' + gallery_photos[0] + ')');#}
         }).catch(function() {
           console.log("Error");
         });
+
+        var uniqueVideoAssetId = 0;
+
+        function startVideoPlayback() {
+            // Create a new asset
+            var new_asset = document.createElement('video');
+            new_asset.setAttribute('id', 'dynVid' + uniqueVideoAssetId); // Create a unique id for asset
+            new_asset.setAttribute('src', gallery_photos[0]);
+
+            // Append the new video to the a-assets, where a-assets id="assets-id"
+            document.getElementById('assets_id').appendChild(new_asset);
+
+            // Add the asset to the a-video
+            galleryPhotoContainer.setAttribute('material', 'src', '#dynVid' + uniqueVideoAssetId.toString());
+            // Start playback
+            new_asset.muted = true;
+            new_asset.play();
+
+            uniqueVideoAssetId++;
+        }
 
         // Gallery:
         var galleryPhotoContainer = document.getElementById("galleryphoto");
         {#var testTexture = document.getElementById("test_texture");#}
         var current3 = 0;
+
         function OnNextGalleryButtonClick() {
             {#let galleryPhoto = galleryPhotoContainer.cloneNode(true);#}
 

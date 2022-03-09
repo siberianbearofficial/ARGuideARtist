@@ -2,12 +2,18 @@ from json import dumps
 
 
 photo_base_url = '/static/gallery/photos/photo ({0}).jpg'
+video_base_url = '/static/gallery/videos/video ({0}).mp4'
 
 
-photo_list = list()
+gallery_list = list()
+
+
+for i in range(1, 2):
+    gallery_list.append(video_base_url.format(i))
+
 for i in range(1, 38):
-    photo_list.append(photo_base_url.format(i))
+    gallery_list.append(photo_base_url.format(i))
 
 
 def get_photos_from_db():
-    return dumps(photo_list)
+    return dumps(gallery_list)
