@@ -60,6 +60,7 @@ def get_navigations():
 
     return navigations_list
 
+
 def get_navigation_r():
     session = db_session.create_session()
     navigation = session.query(Navigations_rout).all()
@@ -72,4 +73,18 @@ def get_navigation_r():
     session.close()
 
     return navigation_r_list
+
+
+# def get_navigation_r():
+#     session = db_session.create_session()
+#     navigation = session.query(Navigations_rout).all()
+#
+#     navigation_r_list = list()
+#     for nvr in navigation:
+#         item_dict = {'id': nvr.id, 'routs_id': nvr.routs_id, 'navigation': nvr.navigation}
+#         navigation_r_list.append(item_dict)
+#
+#     session.close()
+#
+#     return navigation_r_list
 
