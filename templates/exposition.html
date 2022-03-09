@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% block body %}
+    <!-- Camera: -->
+    <a-camera zappar-camera="user-camera-mirror-mode: no-mirror"></a-camera>
+
+    <a-assets id="assets_id">
+        <video id="videoFireworks" preload="auto"
+               src="https://cdn.aframe.io/videos/fireworks.mp4"
+               width="16" height="9" autoplay loop="true"
+               crossOrigin="anonymous" muted></video>
+    </a-assets>
+
+    <!-- Image tracking: -->
+    <a-entity zappar-image="target: /static/markers/marker1.zpt" id="my-image-tracker">
+
+        <a-entity id="galleryphoto" material="src: /static/gallery/photos/photo (1).jpg" geometry="primitive: plane; width: 11.2; height: 6.3;"
+                  position="0 0 0" rotation="0 0 0"></a-entity>
+        <a-entity id="galleryvideo" material="shader: flat; src: #videoFireworks"
+              geometry="primitive: plane; width: 11.2; height: 6.3;"
+              position="0 0 0" rotation="0 0 0" visible="true"></a-entity>
+        <a-entity geometry="primitive: plane; width: 0.3; height: 0.3;"
+                  material="src: https://cdn.glitch.global/10b70c6a-bfb7-4913-b34c-03a8a1c5eeed/button-refresh.png?v=1641492134128; transparent: true;"
+                  position="1.65 -0.5 0" data-clickable onclick="OnNextGalleryButtonClick()"></a-entity>
+    </a-entity>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        // All routes:
+        var all_routes = null;
+        fetch("/marsh").then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            console.log(data);
+            all_routes = data;
+        }).catch(function () {
+            console.log("Error");
+        });
+
+        console.log(all_routes);
+    </script>
+    <script>
+        // Gallery:
+        var galleryVideoContainer = document.getElementById('galleryvideo');
+        var galleryPhotoContainer = document.getElementById("galleryphoto");
+
+        // Loading gallery photos:
+        var gallery_photos = null;
+
+        /*fetch("/get_gallery_photos").then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            console.log(data);
+            gallery_photos = data;
+            {#galleryPhotoContainer.setAttribute('material', 'src', 'url(' + gallery_photos[0] + ')');#}
+        }).catch(function () {
+            console.log("Error");
+        });*/
+
+        var current3 = 0;  // counter
+
+        function OnNextGalleryButtonClick() {
+
+            if (current3 < gallery_photos.length - 1) current3++; else current3 = 0;
+
+            {#galleryPhoto.setAttribute("id", "galleryphoto" + current3.toString());#}
+            {#galleryPhoto.setAttribute("visible", "true");#}
+            {#galleryPhoto.setAttribute("material", "src: " + gallery_photos[current3] + "; transparent: true;");#}
+
+            var gfs = gallery_photos[current3].split('.');
+            if (gfs[gfs.length - 1] === 'mp4') {
+                console.log('Video');
+                galleryVideoContainer.setAttribute('material', 'src', gallery_photos[current3]);
+                galleryVideoContainer.setAttribute('visible', true);
+                galleryPhotoContainer.setAttribute('visible', false);
+                var gvc = galleryVideoContainer.getAttribute('material').src;
+                gvc.play();
+            } else {
+                console.log('Photo');
+                galleryPhotoContainer.setAttribute('material', 'src', gallery_photos[current3]);
+                galleryVideoContainer.setAttribute('visible', false);
+                galleryPhotoContainer.setAttribute('visible', true);
+            }
+        }
+    </script>
+    <script>
+        /* global AFRAME */
+        AFRAME.registerComponent('play-on-click', {
+            init: function () {
+                this.onClick = this.onClick.bind(this);
+            },
+            play: function () {
+                window.addEventListener('click', this.onClick);
+            },
+            pause: function () {
+                window.removeEventListener('click', this.onClick);
+            },
+            onClick: function (evt) {
+                var videoEl = this.el.getAttribute('material').src;
+                if (!videoEl) {
+                    return;
+                }
+                this.el.object3D.visible = true;
+                videoEl.play();
+            }
+        });
+    </script>
+    <script>
+        /* global AFRAME */
+        AFRAME.registerComponent('hide-on-play', {
+            schema: {type: 'selector'},
+            init: function () {
+                this.onPlaying = this.onPlaying.bind(this);
+                this.onPause = this.onPause.bind(this);
+                this.el.object3D.visible = !this.data.playing;
+            },
+            play: function () {
+                if (this.data) {
+                    this.data.addEventListener('playing', this.onPlaying);
+                    this.data.addEventListener('pause', this.onPause);
+                }
+            },
+            pause: function () {
+                if (this.data) {
+                    this.data.removeEventListener('playing', this.onPlaying);
+                    this.data.removeEventListener('pause', this.onPause);
+                }
+            },
+            onPlaying: function (evt) {
+                this.el.object3D.visible = false;
+            },
+            onPause: function (evt) {
+                this.el.object3D.visible = true;
+            }
+        });
+    </script>
+{% endblock %}
