@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход в систему</title>
+</head>
+<body>
+<div class="form_auth_block">
+  <div class="form_auth_block_content">
+    <p class="form_auth_block_head_text">Авторизация</p>
+      <label>Введите Вашу почту</label>
+      <input type="email" id="email" name="auth_email" placeholder="Логин..." required >
+      <label>Введите Ваш пароль</label>
+      <input type="password" id="password" name="auth_pass" placeholder="Пароль..." required >
+      <button id="form_auth_button" name="form_auth_submit" onclick="OnSubmitButtonClick()">Войти</button>
+      <input type="button" onclick="history.back();" value="Назад"/>
+        <footer class="footer">
+        <p>&copy; ARtist 2022</p>
+      </footer>
+  </div>
+</div>
+
+<script>
+var submit_btn = document.getElementById("form_auth_button");
+var email_inp = document.getElementById("email");
+var pass_inp = document.getElementById("password");
+
+function OnSubmitButtonClick() {
+  if (email.value == "ARtist@mail.ru") {
+    document.location.href = "/st"; }
+ else {
+    document.location.href = "/metric";}
+    return;
+}</script>
+
+</body>
+</html>
