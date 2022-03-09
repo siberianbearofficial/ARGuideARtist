@@ -3,132 +3,121 @@
     <!-- Camera: -->
     <a-camera zappar-camera="user-camera-mirror-mode: no-mirror"></a-camera>
 
-{#    <a-assets>#}
-{#      <a-asset-item id="gift-model" src="https://cdn.glitch.global/10b70c6a-bfb7-4913-b34c-03a8a1c5eeed/gift.gltf?v=1641492133796"></a-asset-item>#}
-{#    </a-assets>#}
-
     <a-assets id="assets_id">
-        <img id="test_texture" src="/static/gallery/photos/photo (1).jpg">
+        <video id="videoFireworks" preload="auto"
+               src="https://cdn.aframe.io/videos/fireworks.mp4"
+               width="16" height="9" autoplay loop="true"
+               crossOrigin="anonymous" muted></video>
     </a-assets>
 
-		<!-- Image tracking: -->
-		<a-entity zappar-image="target: /static/markers/marker1.zpt" id="my-image-tracker">
-{#      <!-- Gift: -->#}
-{#			<a-entity gltf-model="#gift-model" rotation="0 0 0" scale="0.4 0.4 0.4" position="0 0.1 0"></a-entity>#}
+    <!-- Image tracking: -->
+    <a-entity zappar-image="target: /static/markers/marker1.zpt" id="my-image-tracker">
 
-      <!-- Lights: -->
-{#      <a-entity id="lights0" visible="true" geometry="primitive: plane; width: 0.89; height: 0.265;" material="src: https://cdn.glitch.global/10b70c6a-bfb7-4913-b34c-03a8a1c5eeed/lights0.png?v=1641492166684; transparent: true;" position="1.1 0.65 0" rotation="0 0 -45"></a-entity>#}
-{#      <a-entity id="lights1" visible="false" geometry="primitive: plane; width: 0.89; height: 0.265;" material="src: https://cdn.glitch.global/10b70c6a-bfb7-4913-b34c-03a8a1c5eeed/lights1.png?v=1641492166807; transparent: true;" position="1.1 0.65 0" rotation="0 0 -45"></a-entity>#}
-{#      <a-entity id="lights2" visible="false" geometry="primitive: plane; width: 0.89; height: 0.265;" material="src: https://cdn.glitch.global/10b70c6a-bfb7-4913-b34c-03a8a1c5eeed/lights2.png?v=1641492166761; transparent: true;" position="1.1 0.65 0" rotation="0 0 -45"></a-entity>#}
-
-      <a-entity id="galleryphoto" material="src: #test_texture" geometry="primitive: plane; width: 11.2; height: 6.3;" position="0 0 0" rotation="0 0 0"></a-entity>
-      <a-video id="vid" src="../static/gallery/videos/video (1).mp4" crossOrigin="anonymous" muted loop="true" width="11.2" height="6.3" position="0 0 0" rotation="0 0 0"></a-video>
-{#      <a-entity geometry="primitive: plane; width: 0.3; height: 0.3;" material="src: https://cdn.glitch.global/10b70c6a-bfb7-4913-b34c-03a8a1c5eeed/button-refresh.png?v=1641492134128; transparent: true;" position="1.65 0.8 0" data-clickable onclick="OnLightsButtonClick()"></a-entity>#}
-
-      <!-- Congrats: -->
-{#      <a-entity id="congrats0" visible="true" text="color: white; align: center; value: May 2022 be an extraordinary one.;" scale="3 3 3" position="-0.1 -0.5 0">#}
-{#      </a-entity>#}
-{#      <a-entity id="congrats1" visible="false" text="color: white; align: center; value: May the coming year be full of grand adventures and opportunities.;" scale="3 3 3" position="-0.1 -0.5 0">#}
-{#      </a-entity>#}
-{#      <a-entity id="congrats2" visible="false" text="color: white; align: center; value: Life is short - dream big and make the most of 2022!;" scale="3 3 3" position="-0.1 -0.5 0">#}
-{#      </a-entity>#}
-{#      <a-entity id="congrats3" visible="false" text="color: white; align: center; value: 2022 is the beginning of a new chapter. This is your year. Make it happen.;" scale="3 3 3" position="-0.1 -0.5 0">#}
-{#      </a-entity>#}
-{#      <a-entity id="congrats4" visible="false" text="color: white; align: center; value: Life is an adventure that's full of beautiful destinations. Wishing you many wonderful memories made in 2022.;" scale="3 3 3" position="-0.1 -0.5 0">#}
-{#      </a-entity>#}
-
-      <a-entity geometry="primitive: plane; width: 0.3; height: 0.3;" material="src: https://cdn.glitch.global/10b70c6a-bfb7-4913-b34c-03a8a1c5eeed/button-refresh.png?v=1641492134128; transparent: true;" position="1.65 -0.5 0" data-clickable onclick="OnNextGalleryButtonClick()"></a-entity>
-		</a-entity>
+        <a-entity id="galleryphoto" material="src: /static/gallery/photos/photo (1).jpg" geometry="primitive: plane; width: 11.2; height: 6.3;"
+                  position="0 0 0" rotation="0 0 0"></a-entity>
+        <a-entity id="galleryvideo" material="shader: flat; src: #videoFireworks"
+              geometry="primitive: plane; width: 11.2; height: 6.3;"
+              position="0 0 0" rotation="0 0 0" visible="true"></a-entity>
+        <a-entity geometry="primitive: plane; width: 0.3; height: 0.3;"
+                  material="src: https://cdn.glitch.global/10b70c6a-bfb7-4913-b34c-03a8a1c5eeed/button-refresh.png?v=1641492134128; transparent: true;"
+                  position="1.65 -0.5 0" data-clickable onclick="OnNextGalleryButtonClick()"></a-entity>
+    </a-entity>
 {% endblock %}
 
 {% block scripts %}
     <script>
+        // Gallery:
+        var galleryVideoContainer = document.getElementById('galleryvideo');
+        var galleryPhotoContainer = document.getElementById("galleryphoto");
+
         // Loading gallery photos:
         var gallery_photos = null;
 
-        fetch("/get_gallery_photos").then(function(response) {
-          return response.json();
-        }).then(function(data) {
-          console.log(data);
-          gallery_photos = data;
-
-          startVideoPlayback();
-          {#galleryPhotoContainer.setAttribute('material', 'src', 'url(' + gallery_photos[0] + ')');#}
-        }).catch(function() {
-          console.log("Error");
+        fetch("/get_gallery_photos").then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            console.log(data);
+            gallery_photos = data;
+            {#galleryPhotoContainer.setAttribute('material', 'src', 'url(' + gallery_photos[0] + ')');#}
+        }).catch(function () {
+            console.log("Error");
         });
 
-        var uniqueVideoAssetId = 0;
-
-        function startVideoPlayback() {
-            // Create a new asset
-            var new_asset = document.createElement('video');
-            new_asset.setAttribute('id', 'dynVid' + uniqueVideoAssetId); // Create a unique id for asset
-            new_asset.setAttribute('src', gallery_photos[0]);
-
-            // Append the new video to the a-assets, where a-assets id="assets-id"
-            document.getElementById('assets_id').appendChild(new_asset);
-
-            // Add the asset to the a-video
-            galleryPhotoContainer.setAttribute('material', 'src', '#dynVid' + uniqueVideoAssetId.toString());
-            // Start playback
-            new_asset.muted = true;
-            new_asset.play();
-
-            uniqueVideoAssetId++;
-        }
-
-        // Gallery:
-        var galleryPhotoContainer = document.getElementById("galleryphoto");
-        {#var testTexture = document.getElementById("test_texture");#}
-        var current3 = 0;
+        var current3 = 0;  // counter
 
         function OnNextGalleryButtonClick() {
-            {#let galleryPhoto = galleryPhotoContainer.cloneNode(true);#}
 
             if (current3 < gallery_photos.length - 1) current3++; else current3 = 0;
 
             {#galleryPhoto.setAttribute("id", "galleryphoto" + current3.toString());#}
             {#galleryPhoto.setAttribute("visible", "true");#}
             {#galleryPhoto.setAttribute("material", "src: " + gallery_photos[current3] + "; transparent: true;");#}
-            galleryPhotoContainer.setAttribute('material', 'src', gallery_photos[current3]);
 
-            {#testTexture.src = gallery_photos[current3];#}
-
-            {#console.log(galleryPhoto);#}
-
-            {#document.querySelector("a-scene").appendChild(galleryPhoto);#}
+            var gfs = gallery_photos[current3].split('.');
+            if (gfs[gfs.length - 1] === 'mp4') {
+                console.log('Video');
+                galleryVideoContainer.setAttribute('material', 'src', gallery_photos[current3]);
+                galleryVideoContainer.setAttribute('visible', true);
+                galleryPhotoContainer.setAttribute('visible', false);
+                var gvc = galleryVideoContainer.getAttribute('material').src;
+                gvc.play();
+            } else {
+                console.log('Photo');
+                galleryPhotoContainer.setAttribute('material', 'src', gallery_photos[current3]);
+                galleryVideoContainer.setAttribute('visible', false);
+                galleryPhotoContainer.setAttribute('visible', true);
+            }
         }
     </script>
     <script>
-        // Lights:
-        var current = 0;
-        var count_of_lights = 3;
-        function OnLightsButtonClick() {
-          if (current < count_of_lights - 1) {
-            current++;
-            document.getElementById('lights' + current).setAttribute("visible", true);
-            document.getElementById('lights' + (current-1)).setAttribute("visible", false);
-          } else {
-            current = 0;
-            document.getElementById('lights' + current).setAttribute("visible", true);
-            document.getElementById('lights' + (count_of_lights - 1)).setAttribute("visible", false);
-          }
-        }
-
-        // Congrats:
-        function getRandomInt(max) {
-          return Math.floor(Math.random() * max);
-        }
-        var current2 = 0;
-        var last = -1;
-        var count_of_congrats = 5;
-        function OnCongratsButtonClick() {
-          last = current2;
-          while (current2 == last)
-            current2 = getRandomInt(count_of_congrats);
-          document.getElementById('congrats' + last).setAttribute("visible", false);
-          document.getElementById('congrats' + current2).setAttribute("visible", true);
-        }
+        /* global AFRAME */
+        AFRAME.registerComponent('play-on-click', {
+            init: function () {
+                this.onClick = this.onClick.bind(this);
+            },
+            play: function () {
+                window.addEventListener('click', this.onClick);
+            },
+            pause: function () {
+                window.removeEventListener('click', this.onClick);
+            },
+            onClick: function (evt) {
+                var videoEl = this.el.getAttribute('material').src;
+                if (!videoEl) {
+                    return;
+                }
+                this.el.object3D.visible = true;
+                videoEl.play();
+            }
+        });
+    </script>
+    <script>
+        /* global AFRAME */
+        AFRAME.registerComponent('hide-on-play', {
+            schema: {type: 'selector'},
+            init: function () {
+                this.onPlaying = this.onPlaying.bind(this);
+                this.onPause = this.onPause.bind(this);
+                this.el.object3D.visible = !this.data.playing;
+            },
+            play: function () {
+                if (this.data) {
+                    this.data.addEventListener('playing', this.onPlaying);
+                    this.data.addEventListener('pause', this.onPause);
+                }
+            },
+            pause: function () {
+                if (this.data) {
+                    this.data.removeEventListener('playing', this.onPlaying);
+                    this.data.removeEventListener('pause', this.onPause);
+                }
+            },
+            onPlaying: function (evt) {
+                this.el.object3D.visible = false;
+            },
+            onPause: function (evt) {
+                this.el.object3D.visible = true;
+            }
+        });
     </script>
 {% endblock %}

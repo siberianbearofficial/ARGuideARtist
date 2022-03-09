@@ -48,6 +48,13 @@ def get_markers():
     return markers_list
 
 
+def get_list_of_markers():
+    ready = list()
+    for marker in get_markers():
+        ready.append([marker['id'] + 1, marker['marker']])
+    return dumps(ready)
+
+
 def get_routs():
     session = db_session.create_session()
     routs = session.query(Rout).all()
