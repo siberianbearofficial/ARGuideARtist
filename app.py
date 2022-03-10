@@ -3,10 +3,11 @@ import config
 from emulate_db_response import get_photos_from_db
 from data import db_session
 from one import *
-from two import sec_exp, like_exp, pos_exp, pos_zal
+from two import sec_exp, like_exp, pos_exp
 from json import dumps
 
-#db_session.global_init("db/testBase.db")
+
+db_session.global_init("db/argid.sqlite")
 app = Flask(__name__)
 app.config.from_object(config)
 
@@ -118,6 +119,11 @@ def testtest_func():
     return render_template('testtest.html')
 
 
+@app.route('/simple')
+def simple_html_func():
+    return render_template('simple_html.html')
+
+
 @app.route('/photo_booth')
 def photo_booth():
     return render_template('photo_booth.html')
@@ -130,7 +136,9 @@ def get_gallery_photos():
 
 @app.route('/navigation/<a>/<b>')
 def navigation(a, b):
-    return get_naprav(int(a), int(b))
+    napr = get_naprav(int(a), int(b))
+    print(napr)
+    return dumps(napr)
 
 
 @app.route('/marsh')

@@ -1,32 +1,103 @@
 {% extends 'base.html' %}
+{% block style %}
+    <style type="text/css">
+        #first_container {
+            position: absolute;
+            z-index: 9999;
+            left: 100px;
+            top: 100px;
+        }
+        #text_nav_container {
+            position: absolute;
+            z-index: 9999;
+            left: 100px;
+            top: 100px;
+            font-size: 50px;
+        }
+        #second_container {
+            position: absolute;
+            z-index: 9999;
+            left: 200px;
+            top: 100px;
+        }
+        #third_container {
+            position: absolute;
+            z-index: 9999;
+            left: 300px;
+            top: 100px;
+        }
+        .downArrow {
+            width: 50px;
+        }
+        .upArrow {
+            width: 50px;
+        }
+        .leftArrow {
+            height: 50px;
+        }
+        .rightArrow {
+            height: 50px;
+        }
+    </style>
+{% endblock %}
 {% block body %}
     <!-- Camera: -->
     <a-camera zappar-camera="user-camera-mirror-mode: no-mirror"></a-camera>
 
     <a-assets id="assets_id">
-{#        <video id="videoFireworks" preload="auto"#}
-{#               src="https://cdn.aframe.io/videos/fireworks.mp4"#}
-{#               width="16" height="9" autoplay loop="true"#}
-{#               crossOrigin="anonymous" muted></video>#}
+        {#        <video id="videoFireworks" preload="auto"#}
+        {#               src="https://cdn.aframe.io/videos/fireworks.mp4"#}
+        {#               width="16" height="9" autoplay loop="true"#}
+        {#               crossOrigin="anonymous" muted></video>#}
     </a-assets>
 
     <!-- Image tracking: -->
     <a-entity zappar-image="target: /static/markers/marker1.zpt" id="my-image-tracker">
-        <a-entity id="exhibit_info" visible="true" negate="false" text="font: /static/font/21028-msdf.json; align: center; value: May 2022 be an extraordinary one.;" scale="3 3 3" position="0 0 0">
+        <a-entity id="exhibit_info" visible="true" negate="false"
+                  text="font: RobotoCondensed-Regular-msdf.json; font-image: RobotoCondensed-Regular.png; align: center; value: Просто пример;" scale="3 3 3" position="0 0 0">
         </a-entity>
-{#        <a-entity id="galleryphoto" material="src: /static/gallery/photos/photo (1).jpg" geometry="primitive: plane; width: 11.2; height: 6.3;"#}
-{#                  position="0 0 0" rotation="0 0 0"></a-entity>#}
-{#        <a-entity id="galleryvideo" material="shader: flat; src: #videoFireworks"#}
-{#              geometry="primitive: plane; width: 11.2; height: 6.3;"#}
-{#              position="0 0 0" rotation="0 0 0" visible="true"></a-entity>#}
+        {#        <a-entity id="galleryphoto" material="src: /static/gallery/photos/photo (1).jpg" geometry="primitive: plane; width: 11.2; height: 6.3;"#}
+        {#                  position="0 0 0" rotation="0 0 0"></a-entity>#}
+        {#        <a-entity id="galleryvideo" material="shader: flat; src: #videoFireworks"#}
+        {#              geometry="primitive: plane; width: 11.2; height: 6.3;"#}
+        {#              position="0 0 0" rotation="0 0 0" visible="true"></a-entity>#}
         <a-entity geometry="primitive: plane; width: 0.3; height: 0.3;"
                   material="src: https://cdn.glitch.global/10b70c6a-bfb7-4913-b34c-03a8a1c5eeed/button-refresh.png?v=1641492134128; transparent: true;"
-                  position="1.65 -0.5 0" data-clickable onclick="OnNextGalleryButtonClick()"></a-entity>
+                  position="1.65 -0.5 0" data-clickable onclick="onNextExhibitButtonClick()"></a-entity>
     </a-entity>
+
+
+    {# Overlay: #}
+
+    <div style="display: none;">
+        <img class="upArrow" src="/static/expasition/arrows/up_arrow.png">
+        <img class="leftArrow" src="/static/expasition/arrows/left_arrow.png">
+        <img class="rightArrow" src="/static/expasition/arrows/right_arrow.png">
+        <img class="downArrow" src="/static/expasition/arrows/down_arrow.png">
+    </div>
+
+    <div id="first_container"></div>
+    <div id="second_container"></div>
+    <div id="third_container"></div>
+
+    <div id="text_nav_container"></div>
+
+
 {% endblock %}
 
 {% block scripts %}
     <script>
+        var first_container = document.getElementById('first_container');
+        var second_container = document.getElementById('second_container');
+        var third_container = document.getElementById('third_container');
+
+        var text_nav_container = document.getElementById('text_nav_container');
+
+        var upArrow = document.getElementsByClassName("upArrow")[0];
+        var downArrow = document.getElementsByClassName("downArrow")[0];
+        var leftArrow = document.getElementsByClassName("leftArrow")[0];
+        var rightArrow = document.getElementsByClassName("rightArrow")[0];
+
         var route_id = parseInt("{{ route_id }}");  // current route
         var whole_root = "{{ whole_route }}".split("/");  // whole route
 
@@ -62,8 +133,46 @@
             });
         }
 
-        function showNavigation(nav) {
+        var trans_dict = {};
+        trans_dict["u"] = "↑";
+        trans_dict["d"] = "↓";
+        trans_dict["r"] = "→";
+        trans_dict["l"] = "←";
 
+        function showNavigation(nav) {
+            for (let i = 0; i < nav.length; i++)
+                text_nav_container.innerHTML = text_nav_container.innerHTML + trans_dict[nav[i]];
+            if (nav.length === 3) {
+                first_container.appendChild(getArrowElement(nav[0]));
+                second_container.appendChild(getArrowElement(nav[1]));
+                third_container.appendChild(getArrowElement(nav[2]));
+            } else if (nav.length === 2) {
+                first_container.appendChild(getArrowElement(nav[0]));
+                second_container.appendChild(getArrowElement(nav[1]));
+                third_container.innerHTML = "";
+            } else {
+                first_container.appendChild(getArrowElement(nav[0]));
+                second_container.innerHTML = "";
+                third_container.innerHTML = "";
+            }
+        }
+
+        function getArrowElement(got) {
+            if (got === "u") {
+                return upArrow.cloneNode(true);
+            } else if (got === "d") {
+                return downArrow.cloneNode(true);
+            } else if (got === "l") {
+                return leftArrow.cloneNode(true);
+            } else {
+                return rightArrow.cloneNode(true);
+            }
+        }
+
+        function onCloseNavigationButtonClick() {
+            first_container.innerHTML = "";
+            second_container.innerHTML = "";
+            third_container.innerHTML = "";
         }
 
         var overlay_text = document.getElementById('exhibit_info');
