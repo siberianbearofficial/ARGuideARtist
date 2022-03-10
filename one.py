@@ -12,14 +12,14 @@ from json import dumps
 
 
 # def create():
-    # session = db_session.create_session()
-    # bookOne = Item()
-    # bookOne.name = 'mama'
-    # bookOne.count = 155
-    # bookOne.price = 155
-    # session.add(bookOne)
-    # session.commit()
-    # session.close()
+# session = db_session.create_session()
+# bookOne = Item()
+# bookOne.name = 'mama'
+# bookOne.count = 155
+# bookOne.price = 155
+# session.add(bookOne)
+# session.commit()
+# session.close()
 
 def rooms():
     session = db_session.create_session()
@@ -40,12 +40,21 @@ def get_markers():
 
     markers_list = list()
     for mrk in markers:
-        item_dict = {'id': mrk.id, 'marker': mrk.marker, 'exp_name': mrk.exp_name, 'info': mrk.info,'room_id': mrk.room_id, 'visiting_id': mrk.visiting_id}
+        item_dict = {'id': mrk.id, 'marker': mrk.marker, 'exp_name': mrk.exp_name, 'info': mrk.info,
+                     'room_id': mrk.room_id,
+                     'visiting_id': mrk.visiting_id, 'model': mrk.model, 'type_model': mrk.type_model}
         markers_list.append(item_dict)
 
     session.close()
 
     return markers_list
+
+
+def get_exhibit(eid):
+    eid -= 1
+    for mrk in get_markers():
+        if mrk['id'] == eid:
+            return dumps(mrk['info'])
 
 
 def get_list_of_markers():
@@ -67,6 +76,16 @@ def get_routs():
     session.close()
 
     return routs_list
+
+
+def gg_routs():
+    return dumps(get_routs())
+
+
+def get_whole_root_by_id(id_):
+    for r in get_routs():
+        if r['id'] == id_:
+            return r['routs']
 
 
 def get_navigations():
@@ -102,12 +121,15 @@ def get_rec():
 
     rec_list = list()
     for rec in records:
-        item_dict = {'id': rec.id, 'time': rec.time, 'exibitId': rec.exibitId, 'timeSpentInFrontSec': rec.timeSpentInFrontSec,
-                     'visualFeedback': rec.visualFeedback, 'description': rec.description, 'completeness': rec.completeness}
+        item_dict = {'id': rec.id, 'time': rec.time, 'exibitId': rec.exibitId,
+                     'timeSpentInFrontSec': rec.timeSpentInFrontSec,
+                     'visualFeedback': rec.visualFeedback, 'description': rec.description,
+                     'completeness': rec.completeness}
         rec_list.append(item_dict)
 
     session.close()
     return rec_list
+
 
 def get_navigation_r():
     session = db_session.create_session()
@@ -122,12 +144,14 @@ def get_navigation_r():
 
     return navigation_r_list
 
+
 def get_naprav(A, B):
     A, B = A - 1, B - 1
+    a = None
     nv = get_navigations()
     try:
         for i in range(len(nv)):
-            result_list = [v for k,v in nv[i].items()]
+            result_list = [v for k, v in nv[i].items()]
             for j in result_list:
                 if j == result_list[2] and j == A:
                     for z in result_list:
@@ -137,12 +161,13 @@ def get_naprav(A, B):
     except:
         print('ошибка')
 
+
 def get_marsh():
     c1 = []
     r = get_routs()
 
     for i in range(len(r)):
-        res_ls = [v for k,v in r[i].items()]
+        res_ls = [v for k, v in r[i].items()]
         for j in res_ls:
             if j == res_ls[1]:
                 c1.append(j)

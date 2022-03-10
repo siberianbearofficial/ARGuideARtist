@@ -2,7 +2,7 @@ from flask import Flask, render_template
 import config
 from emulate_db_response import get_photos_from_db
 from data import db_session
-from one import get_markers, get_routs, get_navigations, get_navigation_r, get_naprav, get_marsh, rooms, get_list_of_markers
+from one import *
 from two import sec_exp, like_exp, pos_exp
 from json import dumps
 
@@ -88,9 +88,21 @@ def test_video_func():
     return render_template('test_video.html')
 
 
-@app.route('/exposition')
-def exposition():
-    return render_template('exposition.html')
+@app.route('/exposition/<route_id>')
+def exposition(route_id):
+    return render_template('exposition.html', route_id=int(route_id), whole_route=get_whole_root_by_id(int(route_id)))
+
+
+@app.route('/choose_exposition')
+def choose_exposition():
+    return render_template('choose_exposition.html')
+
+
+@app.route('/get_exhibit/<exhibit_id>')
+def get_exhibit_func(exhibit_id):
+    got = get_exhibit(int(exhibit_id))
+    print('GOT:', got)
+    return got
 
 
 @app.route('/get_marker')
@@ -120,7 +132,7 @@ def navigation(a, b):
 
 @app.route('/marsh')
 def marsh():
-    return get_marsh()
+    return gg_routs()
 
 
 @app.route('/admin_statistic')
@@ -130,8 +142,8 @@ def adm_stat():
 
 @app.route('/test_admin_statistic')
 def test_adm_stat():
-    return '{"Exp 1":"Max: 538   Min: 61  Sr: 268.88146426496223","Exp 2":"Max: 658   Min: 122  Sr: 374.86247216035633","Exp 3":"Max: 538   Min: 61  Sr: 266.76745329400194","Exp 4":"Max: 538   Min: 61  Sr: 264.8294342832837","Exp 5":"Max: 539   Min: 61  Sr: 271.0042656916514","Exp 6":"Max: 659   Min: 121  Sr: 378.04987320371936","Exp 7":"Max: 659   Min: 122  Sr: 384.47377326565146","Exp 8":"Max: 539   Min: 61  Sr: 267.6633081444165"}'
-
+    a = {"Exp 1": [538, 61, 268.88146426496223],"Exp 2":[658, 122,374.86247216035633],"Exp 3": [538, 61, 266.76745329400194],"Exp 4":[538,61,264.8294342832837],"Exp 5":[539,61,271.0042656916514],"Exp 6":[659,121,378.04987320371936],"Exp 7":[659,122,384.47377326565146],"Exp 8":[539, 61, 267.6633081444165]}
+    return a
 
 @app.route('/statistic')
 def pol_stat():
@@ -140,7 +152,9 @@ def pol_stat():
 
 @app.route('/test_statistic')
 def pol_test_stat():
-    return '[{"Exp 1": "Sr: 3.103234553554135", "Exp 2": "Sr: 3.250556792873051", "Exp 3": "Sr: 3.0658800393313665", "Exp 4": "Sr: 3.4887282007656317", "Exp 5": "Sr: 3.216737761527524", "Exp 6": "Sr: 3.0808678500986195", "Exp 7": "Sr: 2.8639570985040925", "Exp 8": "Sr: 3.0848026868178002"}, {"Exp 1": 1721, "Exp 2": 1796, "Exp 3": 2034, "Exp 4": 2351, "Exp 5": 1641, "Exp 6": 1183, "Exp 7": 1181, "Exp 8": 1191}]'  # пользовательская статистика
+    a = {"Exp 1": 3.103234553554135, "Exp 2": 3.250556792873051, "Exp 3": 3.0658800393313665, "Exp 4": 3.4887282007656317, "Exp 5": 3.216737761527524, "Exp 6": 3.0808678500986195, "Exp 7": 2.8639570985040925, "Exp 8": 3.0848026868178002}
+    b = {"Exp 1": 1721, "Exp 2": 1796, "Exp 3": 2034, "Exp 4": 2351, "Exp 5": 1641, "Exp 6": 1183, "Exp 7": 1181, "Exp 8": 1191}
+    return dumps([a, b])# пользовательская статистика
 
 
 if __name__ == '__main__':

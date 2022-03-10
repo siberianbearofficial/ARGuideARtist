@@ -10,11 +10,12 @@ r = 'right'
 u = 'up'
 d = 'down'
 
+
 def get_naprav(A, B):
     A, B = A - 1, B - 1
     try:
         for i in range(len(nv)):
-            result_list = [v for k,v in nv[i].items()]
+            result_list = [v for k, v in nv[i].items()]
             for j in result_list:
                 if j == result_list[2] and j == A:
                     for z in result_list:
@@ -24,16 +25,19 @@ def get_naprav(A, B):
     except:
         print('ошибка')
 
+
 def get_marsh():
     c1 = []
     r = get_routs()
 
     for i in range(len(r)):
-        res_ls = [v for k,v in r[i].items()]
+        res_ls = [v for k, v in r[i].items()]
         for j in res_ls:
             if j == res_ls[1]:
                 c1.append(j)
 
     return dumps(c1)
 
-print(get_marsh(),get_naprav(1, 9))
+
+print(get_marsh(), get_naprav(1, 9))
+print({'id': {'id1': 12}})
