@@ -7,6 +7,7 @@
             left: 100px;
             top: 100px;
         }
+
         #text_nav_container {
             position: absolute;
             z-index: 9999;
@@ -14,27 +15,33 @@
             top: 100px;
             font-size: 50px;
         }
+
         #second_container {
             position: absolute;
             z-index: 9999;
             left: 200px;
             top: 100px;
         }
+
         #third_container {
             position: absolute;
             z-index: 9999;
             left: 300px;
             top: 100px;
         }
+
         .downArrow {
             width: 50px;
         }
+
         .upArrow {
             width: 50px;
         }
+
         .leftArrow {
             height: 50px;
         }
+
         .rightArrow {
             height: 50px;
         }
@@ -49,15 +56,28 @@
         {#               src="https://cdn.aframe.io/videos/fireworks.mp4"#}
         {#               width="16" height="9" autoplay loop="true"#}
         {#               crossOrigin="anonymous" muted></video>#}
+        <a-asset-item id="illustration-model" src="/static/expasition/statue_2.gltf"></a-asset-item>
     </a-assets>
 
     <!-- Image tracking: -->
     <a-entity zappar-image="target: /static/markers/marker1.zpt" id="my-image-tracker">
-        <a-entity id="exhibit_info" visible="true" negate="false"
-                  text="font: RobotoCondensed-Regular-msdf.json; font-image: RobotoCondensed-Regular.png; align: center; value: Просто пример;" scale="3 3 3" position="0 0 0">
-        </a-entity>
-        {#        <a-entity id="galleryphoto" material="src: /static/gallery/photos/photo (1).jpg" geometry="primitive: plane; width: 11.2; height: 6.3;"#}
-        {#                  position="0 0 0" rotation="0 0 0"></a-entity>#}
+        <a-plane class="to_hide" color="#CCC" height="2.25" width="4" position="0.19 2.25 0"></a-plane>
+        <a-text id="exhibit_info"
+                class="to_hide"
+                negate="false"
+                color="black"
+                font="/static/font/RobotoCondensed-Regular-msdf.json"
+                font-image="/static/font/RobotoCondensed-Regular.png"
+                align="center"
+                value="Just an example"
+                scale="0.3 0.3 0.3" position="0.2 2.25 0">
+        </a-text>
+        <a-entity id="im" visible="false" material="src: /static/gallery/photos/photo (1).jpg"
+                  geometry="primitive: plane; width: 4; height: 2.25;"
+                  position="0.2 -2.25 0" rotation="0 0 0"></a-entity>
+        <a-gltf-model visible="false" id="mod" src="/static/expasition/statue_2.gltf" rotation="0 0 0"
+                      scale="0.4 0.4 0.4"
+                      position="0.2 -3 0"></a-gltf-model>
         {#        <a-entity id="galleryvideo" material="shader: flat; src: #videoFireworks"#}
         {#              geometry="primitive: plane; width: 11.2; height: 6.3;"#}
         {#              position="0 0 0" rotation="0 0 0" visible="true"></a-entity>#}
@@ -87,6 +107,12 @@
 
 {% block scripts %}
     <script>
+        var imContainer = document.getElementById('im');
+        var modContainer = document.getElementById('mod');
+
+        var to_hide = document.getElementsByClassName("to_hide");
+        var imageTracker = document.getElementById('my-image-tracker');
+
         var first_container = document.getElementById('first_container');
         var second_container = document.getElementById('second_container');
         var third_container = document.getElementById('third_container');
@@ -140,6 +166,8 @@
         trans_dict["l"] = "←";
 
         function showNavigation(nav) {
+            hideOverlay();
+            hideIllustr();
             for (let i = 0; i < nav.length; i++)
                 text_nav_container.innerHTML = text_nav_container.innerHTML + trans_dict[nav[i]];
             if (nav.length === 3) {
@@ -170,16 +198,52 @@
         }
 
         function onCloseNavigationButtonClick() {
+            text_nav_container.innerHTML = "";
             first_container.innerHTML = "";
             second_container.innerHTML = "";
             third_container.innerHTML = "";
         }
 
         var overlay_text = document.getElementById('exhibit_info');
+        var current_illustr = 'null';
 
         function showOverlay(cont) {
-            overlay_text.setAttribute('text', 'value', cont.toString());
-            console.log(cont.toString());
+            if (cont[2] === '2D') {
+                showImage(cont[1]);
+                current_illustr = 'imContainer';
+            } else if (cont[2] === '3D') {
+                show3D(cont[1]);
+                current_illustr = 'modContainer';
+            } else {
+                current_illustr = 'null';
+            }
+            overlay_text.setAttribute('value', cont[0]);
+            for (let i = 0; i < to_hide.length; i++) {
+                to_hide[i].setAttribute('visible', true);
+            }
+        }
+
+        function showImage(im) {
+            console.log('image');
+            imContainer.setAttribute('material', 'src', im);
+            imContainer.setAttribute('visible', true);
+        }
+
+        function show3D(mod) {
+            console.log('model');
+            modContainer.setAttribute('src', mod);
+            imContainer.setAttribute('visible', true);
+        }
+
+        function hideIllustr() {
+            imContainer.setAttribute('visible', false);
+            modContainer.setAttribute('visible', false);
+        }
+
+        function hideOverlay() {
+            for (let i = 0; i < to_hide.length; i++) {
+                to_hide[i].setAttribute('visible', false);
+            }
         }
 
         function onNextExhibitButtonClick() {
@@ -189,8 +253,40 @@
                 alert('End of route!');
                 document.location.href = '/choose_exposition';
             }
+            changeMarker();
+            hideIllustr();
             getNavigation(whole_root[current_point_ind - 1], whole_root[current_point_ind]);
         }
+
+        function changeMarker() {
+            imageTracker.setAttribute('zappar-image', 'target', '/static/markers/marker5.zpt');
+            console.log('IMAGE TRACKER SHOULD BE CHANGED');
+        }
+
+        var canChangeExhibit = false;
+
+        {#  Image tracking:  #}
+        imageTracker.addEventListener("zappar-visible", () => {
+            console.log("Image has become visible");
+            if (current_illustr == 'modContainer') {
+                modContainer.setAttribute('visible', true);
+            } else if (current_illustr == 'imContainer') {
+                imContainer.setAttribute('visible', true);
+            }
+            if (canChangeExhibit) {
+                onCloseNavigationButtonClick();
+                getExposition(whole_root[current_point_ind]);
+                canChangeExhibit = false;
+            }
+        });
+
+        imageTracker.addEventListener("zappar-notvisible", () => {
+            console.log("Image is no longer visible");
+            canChangeExhibit = true;
+            hideOverlay();
+            hideIllustr();
+        });
+
     </script>
     <script>
         // Gallery:

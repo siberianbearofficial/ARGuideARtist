@@ -54,7 +54,7 @@ def get_exhibit(eid):
     eid -= 1
     for mrk in get_markers():
         if mrk['id'] == eid:
-            return dumps(mrk['info'])
+            return dumps([mrk['info'], mrk['model'], mrk['type_model']])
 
 
 def get_list_of_markers():
