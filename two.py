@@ -50,14 +50,14 @@ def sec_exp():
                 for z in result_list:
                     if z == result_list[3]:
                         exp8.append(z)
-    c = {'Exp 1':'Max: ' + str(max(exp1)) + '   Min: ' + str(min(exp1)) + '  Sr: ' + str(sum(exp1)/len(exp1)),
-         'Exp 2':'Max: ' + str(max(exp2)) + '   Min: ' + str(min(exp2)) + '  Sr: ' + str(sum(exp2)/len(exp2)),
-         'Exp 3':'Max: ' + str(max(exp3)) + '   Min: ' + str(min(exp3)) + '  Sr: ' + str(sum(exp3)/len(exp3)),
-         'Exp 4':'Max: ' + str(max(exp4)) + '   Min: ' + str(min(exp4)) + '  Sr: ' + str(sum(exp4)/len(exp4)),
-         'Exp 5':'Max: ' + str(max(exp5)) + '   Min: ' + str(min(exp5)) + '  Sr: ' + str(sum(exp5)/len(exp5)),
-         'Exp 6':'Max: ' + str(max(exp6)) + '   Min: ' + str(min(exp6)) + '  Sr: ' + str(sum(exp6)/len(exp6)),
-         'Exp 7':'Max: ' + str(max(exp7)) + '   Min: ' + str(min(exp7)) + '  Sr: ' + str(sum(exp7)/len(exp7)),
-         'Exp 8':'Max: ' + str(max(exp8)) + '   Min: ' + str(min(exp8)) + '  Sr: ' + str(sum(exp8)/len(exp8))}
+    c = {'Exp 1':[max(exp1),min(exp1), sum(exp1)/len(exp1)],
+         'Exp 2':[max(exp2),min(exp2), sum(exp2)/len(exp2)],
+         'Exp 3':[max(exp3),min(exp3), sum(exp3)/len(exp3)],
+         'Exp 4':[max(exp4),min(exp4), sum(exp4)/len(exp4)],
+         'Exp 5':[max(exp5),min(exp5), sum(exp5)/len(exp5)],
+         'Exp 6':[max(exp6),min(exp6), sum(exp6)/len(exp6)],
+         'Exp 7':[max(exp7),min(exp7), sum(exp7)/len(exp7)],
+         'Exp 8':[max(exp8),min(exp8), sum(exp8)/len(exp8)]}
     return c
 
 def like_exp():
@@ -106,14 +106,14 @@ def like_exp():
                 exp8.append(result_list[5])
                 exp8.append(result_list[6])
 
-    c = {'Exp 1': 'Sr: ' + str(sum(exp1)/len(exp1)),
-         'Exp 2': 'Sr: ' + str(sum(exp2)/len(exp2)),
-         'Exp 3': 'Sr: ' + str(sum(exp3)/len(exp3)),
-         'Exp 4': 'Sr: ' + str(sum(exp4)/len(exp4)),
-         'Exp 5': 'Sr: ' + str(sum(exp5)/len(exp5)),
-         'Exp 6': 'Sr: ' + str(sum(exp6)/len(exp6)),
-         'Exp 7': 'Sr: ' + str(sum(exp7)/len(exp7)),
-         'Exp 8': 'Sr: ' + str(sum(exp8)/len(exp8))}
+    c = {'Exp 1': (sum(exp1)/len(exp1)),
+         'Exp 2': (sum(exp2)/len(exp2)),
+         'Exp 3': (sum(exp3)/len(exp3)),
+         'Exp 4': (sum(exp4)/len(exp4)),
+         'Exp 5': (sum(exp5)/len(exp5)),
+         'Exp 6': (sum(exp6)/len(exp6)),
+         'Exp 7': (sum(exp7)/len(exp7)),
+         'Exp 8': (sum(exp8)/len(exp8))}
 
     return c
 
@@ -170,8 +170,60 @@ def pos_exp():
          'Exp 6': int(len(exp6)),
          'Exp 7': int(len(exp7)),
          'Exp 8': int(len(exp8))}
+    print(exp1)
 
     return c
 
 def pos_zal():
-    pass
+    rec = get_rec()
+    exp1 = []
+    exp2 = []
+    exp3 = []
+    exp4 = []
+    exp5 = []
+    exp6 = []
+    exp7 = []
+    exp8 = []
+    for i in range(len(rec)):
+        result_list = [v for k, v in rec[i].items()]
+        for j in result_list:
+            if j == result_list[2] and j == 1:
+                for z in result_list:
+                    if z == result_list[1] and z[:10] == '2022-03-10':
+                        exp1.append(z)
+            elif j == result_list[2] and j == 2:
+                for z in result_list:
+                    if z == result_list[1] and z[:10] == '2022-03-10':
+                        exp2.append(z)
+            elif j == result_list[2] and j == 3:
+                for z in result_list:
+                    if z == result_list[1] and z[:10] == '2022-03-10':
+                        exp3.append(z)
+            elif j == result_list[2] and j == 4:
+                for z in result_list:
+                    if z == result_list[1] and z[:10] == '2022-03-10':
+                        exp4.append(z)
+            elif j == result_list[2] and j == 5:
+                for z in result_list:
+                    if z == result_list[1] and z[:10] == '2022-03-10':
+                        exp5.append(z)
+            elif j == result_list[2] and j == 6:
+                for z in result_list:
+                    if z == result_list[1] and z[:10] == '2022-03-10':
+                        exp6.append(z)
+            elif j == result_list[2] and j == 7:
+                for z in result_list:
+                    if z == result_list[1] and z[:10] == '2022-03-10':
+                        exp7.append(z)
+            elif j == result_list[2] and j == 8:
+                for z in result_list:
+                    if z == result_list[1] and z[:10] == '2022-03-10':
+                        exp8.append(z)
+
+    c = {
+        'Room 1': int(len(exp1)+len(exp2)),
+        'Room 2': int(len(exp3)+len(exp4)),
+        'Room 3': int(len(exp5)+len(exp6)+len(exp7)+len(exp8)),
+         }
+
+    return c

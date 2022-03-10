@@ -11,6 +11,7 @@
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
     <title>Время перед экспонатам</title>
+    <link href="../static/css/style.css" rel="stylesheet">
 </head>
 <body>
 <div>
@@ -18,7 +19,7 @@
     <script>
 
     var database = null;
-        fetch("/test_admin_statistic").then(function(response) {
+        fetch("/admin_statistic").then(function(response) {
           return response.json();
         }).then(function(data) {
           console.log(data);
@@ -35,19 +36,19 @@
         data: {
             labels: ['Байкал', 'Аральская пещера', 'Нерпы', 'Омуль', 'Бурята', 'Пирамида из камней', 'Шаман камень','Юрта'],
             datasets: [{
-                label: 'Максимальное посещение',
+                label: 'Максимальное посещение, c.',
                 data: [database["Exp 1"][0],database["Exp 2"][0],database["Exp 3"][0],database["Exp 4"][0],database["Exp 5"][0],database["Exp 6"][0],database["Exp 7"][0],database["Exp 8"][0]],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)']},
 
                 {
-                label: 'Минимальное посещение',
+                label: 'Минимальное посещение, c.',
                 data: [database["Exp 1"][1],database["Exp 2"][1],database["Exp 3"][1],database["Exp 4"][1],database["Exp 5"][1],database["Exp 6"][1],database["Exp 7"][1],database["Exp 8"][1]],
                 backgroundColor: [
                     'rgba(75, 192, 192, 1)']},
 
                 {
-                label: 'Среднее посещение',
+                label: 'Среднее посещение, c.',
                 data: [database["Exp 1"][2],database["Exp 2"][2],database["Exp 3"][2],database["Exp 4"][2],database["Exp 5"][2],database["Exp 6"][2],database["Exp 7"][2],database["Exp 8"][2]],
                 backgroundColor: [
                     'rgba(54, 162, 235, 1)']}

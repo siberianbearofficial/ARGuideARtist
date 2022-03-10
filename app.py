@@ -3,7 +3,7 @@ import config
 from emulate_db_response import get_photos_from_db
 from data import db_session
 from one import *
-from two import sec_exp, like_exp, pos_exp
+from two import sec_exp, like_exp, pos_exp, pos_zal
 from json import dumps
 
 db_session.global_init("db/argid.sqlite")
@@ -23,7 +23,7 @@ def hello_world():
     print(routs)
     print(navigations)
     print(navigations_r)
-    return 'Hello World my test file'
+    return render_template('home_page.html')
 
 
 @app.route('/test')
@@ -44,6 +44,10 @@ def stars():
 @app.route("/st")
 def st():
     return render_template('st.html')
+
+@app.route("/sta")
+def sta():
+    return render_template('sta.html')
 
 @app.route("/zal")
 def zal():
@@ -146,7 +150,7 @@ def test_adm_stat():
 
 @app.route('/statistic')
 def pol_stat():
-    return dumps([like_exp(), pos_exp()])  # пользовательская статистика
+    return dumps([like_exp(), pos_exp(), pos_zal()])  # пользовательская статистика
 
 
 @app.route('/test_statistic')
