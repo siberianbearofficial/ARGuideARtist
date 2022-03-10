@@ -45,7 +45,6 @@ def stars():
 def st():
     return render_template('st.html')
 
-
 @app.route("/zal")
 def zal():
     return render_template('zal.html')

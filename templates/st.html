@@ -12,43 +12,56 @@
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
     <title>Время перед экспонатам</title>
 </head>
-<body>     <canvas id="myChart" max-width="40" max-height="50"></canvas>
+<body>
+<div>
+    <canvas id="myChart" max-width="300px" max-height="300px"></canvas> </div>
     <script>
-    var ctx = document.getElementById('myChart').getContext('2d');
+
+    var database = null;
+        fetch("/test_admin_statistic").then(function(response) {
+          return response.json();
+        }).then(function(data) {
+          console.log(data);
+          database = data;
+          makechart();
+          console.log(data['Exp 1']);
+        }).catch(function() {
+          console.log("Error");
+        });
+
+    function makechart(){var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Байкал', 'Аральская пещера', 'Нерпы', 'Омуль', 'Бурята', 'Пирамида из камней'],
+            labels: ['Байкал', 'Аральская пещера', 'Нерпы', 'Омуль', 'Бурята', 'Пирамида из камней', 'Шаман камень','Юрта'],
             datasets: [{
-                label: 'Время проведения перед экспонатам',
-                data: [193, 588, 545, 255, 227, 151],
+                label: 'Максимальное посещение',
+                data: [database["Exp 1"][0],database["Exp 2"][0],database["Exp 3"][0],database["Exp 4"][0],database["Exp 5"][0],database["Exp 6"][0],database["Exp 7"][0],database["Exp 8"][0]],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
+                    'rgba(255, 99, 132, 0.2)']},
+
+                {
+                label: 'Минимальное посещение',
+                data: [database["Exp 1"][1],database["Exp 2"][1],database["Exp 3"][1],database["Exp 4"][1],database["Exp 5"][1],database["Exp 6"][1],database["Exp 7"][1],database["Exp 8"][1]],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 1)']},
+
+                {
+                label: 'Среднее посещение',
+                data: [database["Exp 1"][2],database["Exp 2"][2],database["Exp 3"][2],database["Exp 4"][2],database["Exp 5"][2],database["Exp 6"][2],database["Exp 7"][2],database["Exp 8"][2]],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 1)']}
+            ]
         },
+    })
         options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
+        scales: {
+          y: {
+            beginAtZero: true
+          }
         }
-    });
+      }
+    }
     </script>
 <input type="button" onclick="history.back();" value="Назад"/>
         <footer class="footer">
