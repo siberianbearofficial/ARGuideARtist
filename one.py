@@ -70,7 +70,8 @@ def get_routs():
 
     routs_list = list()
     for rt in routs:
-        item_dict = {'id': rt.id, 'routs': rt.routs, 'name_routs': rt.name_routs}
+        route = [str(x + 1) for x in list(map(int, rt.routs.split('/')))]
+        item_dict = {'id': rt.id, 'routs': "/".join(route), 'name_routs': rt.name_routs}
         routs_list.append(item_dict)
 
     session.close()
