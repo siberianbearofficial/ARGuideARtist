@@ -13,56 +13,53 @@
     <title>Экспонаты</title>
 </head>
 <body>
+<div>
+
+            <script>
+            var database = null;
+        fetch("/statistic").then(function(response) {
+          return response.json();
+        }).then(function(data) {
+          console.log(data);
+          database = data;
+          maketable();
+          console.log(data['Exp 1']);
+        }).catch(function() {
+          console.log("Error");
+        });
+        function maketable(){
+            document.getElementById(1).innerHTML = database[0]["Exp 1"];
+            document.getElementById(2).innerHTML = database[0]["Exp 2"];
+            document.getElementById(3).innerHTML = database[0]["Exp 3"];
+            document.getElementById(4).innerHTML = database[0]["Exp 4"];
+            document.getElementById(5).innerHTML = database[0]["Exp 5"];
+            document.getElementById(6).innerHTML = database[0]["Exp 6"];
+            document.getElementById(7).innerHTML = database[0]["Exp 7"];
+            document.getElementById(8).innerHTML = database[0]["Exp 8"];
+            document.getElementById(11).innerHTML = database[1]["Exp 1"];
+            document.getElementById(22).innerHTML = database[1]["Exp 2"];
+            document.getElementById(33).innerHTML = database[1]["Exp 3"];
+            document.getElementById(44).innerHTML = database[1]["Exp 4"];
+            document.getElementById(55).innerHTML = database[1]["Exp 5"];
+            document.getElementById(66).innerHTML = database[1]["Exp 6"];
+            document.getElementById(77).innerHTML = database[1]["Exp 7"];
+            document.getElementById(88).innerHTML = database[1]["Exp 8"];
+        }
+        </script>
+
 <h1>Экспонаты</h1>
-<table>
-  <tbody>
-  <tr>
-      <th>Название</th>
-      <th>Кол-во отзывов</th>
-      <th>Оценка</th>
-    </tr>
-    <tr>
-      <td>Экспонат 1</td>
-      <td>5</td>
-      <td>4.6</td>
-    </tr>
-    <tr>
-      <td>Экспонат 2</td>
-      <td>5</td>
-      <td>2.3</td>
-    </tr>
-    <tr>
-      <td>Экспонат 3</td>
-      <td>5</td>
-      <td>3.9</td>
-    </tr>
-  <tr>
-      <td>Экспонат 4</td>
-      <td>34</td>
-      <td>3.8</td>
-    </tr>
-  <tr>
-      <td>Экспонат 5</td>
-      <td>34</td>
-      <td>4.6</td>
-    </tr>
-  <tr>
-      <td>Экспонат 6</td>
-      <td>22</td>
-      <td>4.9</td>
-    </tr>
-  <tr>
-      <td>Экспонат 7</td>
-      <td>25</td>
-      <td>4.8</td>
-    </tr>
-  <tr>
-      <td>Экспонат 8</td>
-      <td>23</td>
-      <td>3.6</td>
-    </tr>
-  </tbody>
-</table>
+        <table>
+            <caption>Статистика</caption>
+                <tr><th>Название экспаната</th><th>Оценка пользователей</th><th>Посещаемость</th></tr>
+                <tr><td>Байкал</td><td id = "1"></td><td id = "11"></td></tr>
+                <tr><td>Аральская пещера</td><td id = "2"></td><td id = "22"></td></tr>
+                <tr><td>Нерпа</td><td id = "3"></td><td id = "33"></td></tr>
+                <tr><td>Омуль</td><td id = "4"></td><td id = "44"></td></tr>
+                <tr><td>Ольхонские бурята</td><td id = "5"></td><td id = "55"></td></tr>
+                <tr><td>Пирамида из камней</td><td id = "6"></td><td id = "66"></td></tr>
+                <tr><td>Шаман камень</td><td id = "7"></td><td id = "77"></td></tr>
+                <tr><td>Традиционные дома бурятов</td><td id = "8"></td><td id = "88"></td></tr>
+        </table>
 <input type="button" onclick="history.back();" value="Назад"/>
 
         <footer class="footer">

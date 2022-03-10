@@ -6,7 +6,7 @@ from one import *
 from two import sec_exp, like_exp, pos_exp, pos_zal
 from json import dumps
 
-db_session.global_init("db/argid.sqlite")
+#db_session.global_init("db/testBase.db")
 app = Flask(__name__)
 app.config.from_object(config)
 
