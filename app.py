@@ -3,7 +3,7 @@ import config
 from emulate_db_response import get_photos_from_db
 from data import db_session
 from one import *
-from two import sec_exp, like_exp, pos_exp
+from two import sec_exp, like_exp, pos_exp, like_exp_sr, pos_zal
 from json import dumps
 
 
@@ -36,10 +36,17 @@ def test_func():
 def metric_func():
     return render_template('metric.html')
 
+@app.route('/admin_metric')
+def admin_metric_func():
+    return render_template('admin_metric.html')
 
 @app.route("/stars")
 def stars():
     return render_template('stars.html')
+
+@app.route("/admin_stars")
+def admin_stars():
+    return render_template('admin_stars.html')
 
 
 @app.route("/st")
@@ -150,6 +157,9 @@ def marsh():
 def adm_stat():
     return sec_exp()  # служебная статистка
 
+@app.route('/adm_str')
+def adm_str():
+    return like_exp_sr()
 
 @app.route('/test_admin_statistic')
 def test_adm_stat():

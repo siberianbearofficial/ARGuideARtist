@@ -227,3 +227,77 @@ def pos_zal():
          }
 
     return c
+
+def like_exp_sr():
+    rec = get_rec()
+    exp1_1 = []
+    exp1_2 = []
+    exp1_3 = []
+    exp2_1 = []
+    exp2_2 = []
+    exp2_3 = []
+    exp3_1 = []
+    exp3_2 = []
+    exp3_3 = []
+    exp4_1 = []
+    exp4_2 = []
+    exp4_3 = []
+    exp5_1 = []
+    exp5_2 = []
+    exp5_3 = []
+    exp6_1 = []
+    exp6_2 = []
+    exp6_3 = []
+    exp7_1 = []
+    exp7_2 = []
+    exp7_3 = []
+    exp8_1 = []
+    exp8_2 = []
+    exp8_3 = []
+
+    for i in range(len(rec)):
+        result_list = [v for k, v in rec[i].items()]
+        for j in result_list:
+            if j == result_list[2] and j == 1:
+                exp1_1.append(result_list[4])
+                exp1_2.append(result_list[5])
+                exp1_3.append(result_list[6])
+            elif j == result_list[2] and j == 2:
+                exp2_1.append(result_list[4])
+                exp2_2.append(result_list[5])
+                exp2_3.append(result_list[6])
+            elif j == result_list[2] and j == 3:
+                exp3_1.append(result_list[4])
+                exp3_2.append(result_list[5])
+                exp3_3.append(result_list[6])
+            elif j == result_list[2] and j == 4:
+                exp4_1.append(result_list[4])
+                exp4_2.append(result_list[5])
+                exp4_3.append(result_list[6])
+            elif j == result_list[2] and j == 5:
+                exp5_1.append(result_list[4])
+                exp5_2.append(result_list[5])
+                exp5_3.append(result_list[6])
+            elif j == result_list[2] and j == 6:
+                exp6_1.append(result_list[4])
+                exp6_2.append(result_list[5])
+                exp6_3.append(result_list[6])
+            elif j == result_list[2] and j == 7:
+                exp7_1.append(result_list[4])
+                exp7_2.append(result_list[5])
+                exp7_3.append(result_list[6])
+            elif j == result_list[2] and j == 8:
+                exp8_1.append(result_list[4])
+                exp8_2.append(result_list[5])
+                exp8_3.append(result_list[6])
+
+    c = {'Exp 1': [(sum(exp1_1)/len(exp1_1)), sum(exp1_2)/len(exp1_2), sum(exp1_3)/len(exp1_3)],
+         'Exp 2': [(sum(exp2_1)/len(exp2_1)), sum(exp2_2)/len(exp2_2), sum(exp2_3)/len(exp2_3)],
+         'Exp 3': [(sum(exp3_1)/len(exp3_1)), sum(exp3_2)/len(exp3_2), sum(exp3_3)/len(exp3_3)],
+         'Exp 4': [(sum(exp4_1)/len(exp4_1)), sum(exp4_2)/len(exp4_2), sum(exp4_3)/len(exp4_3)],
+         'Exp 5': [(sum(exp5_1)/len(exp5_1)), sum(exp5_2)/len(exp5_2), sum(exp5_3)/len(exp5_3)],
+         'Exp 6': [(sum(exp6_1)/len(exp6_1)), sum(exp6_2)/len(exp6_2), sum(exp6_3)/len(exp6_3)],
+         'Exp 7': [(sum(exp7_1)/len(exp7_1)), sum(exp7_2)/len(exp7_2), sum(exp7_3)/len(exp7_3)],
+         'Exp 8': [(sum(exp8_1)/len(exp8_1)), sum(exp8_2)/len(exp8_2), sum(exp8_3)/len(exp8_3)]}
+
+    return c

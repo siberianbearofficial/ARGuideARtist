@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- chart.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"
+     integrity="sha512-VCHVc5miKoln972iJPvkQrUYYq7XpxXzvqNfiul1H4aZDwGBGC0lq373KNleaB2LpnC2a/iNfE5zoRYmB4TRDQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <title>Оценки</title>
+    <link href="../static/css/style.css" rel="stylesheet">
+</head>
+<body>
+<div>
+    <canvas id="myChart" max-width="300px" max-height="300px"></canvas> </div>
+    <script>
+
+    var database = null;
+        fetch("/adm_str").then(function(response) {
+          return response.json();
+        }).then(function(data) {
+          console.log(data);
+          database = data;
+          makechart();
+          console.log(data['Exp 1']);
+        }).catch(function() {
+          console.log("Error");
+        });
+
+    function makechart(){var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Байкал', 'Аральская пещера', 'Нерпы', 'Омуль', 'Бурята', 'Пирамида из камней', 'Шаман камень','Юрта'],
+            datasets: [{
+                label: 'Визуальная составляющая.',
+                data: [database["Exp 1"][0],database["Exp 2"][0],database["Exp 3"][0],database["Exp 4"][0],database["Exp 5"][0],database["Exp 6"][0],database["Exp 7"][0],database["Exp 8"][0]],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)']},
+
+                {
+                label: 'Описание экспоната.',
+                data: [database["Exp 1"][1],database["Exp 2"][1],database["Exp 3"][1],database["Exp 4"][1],database["Exp 5"][1],database["Exp 6"][1],database["Exp 7"][1],database["Exp 8"][1]],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 1)']},
+
+                {
+                label: 'Законченность образа.',
+                data: [database["Exp 1"][2],database["Exp 2"][2],database["Exp 3"][2],database["Exp 4"][2],database["Exp 5"][2],database["Exp 6"][2],database["Exp 7"][2],database["Exp 8"][2]],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 1)']}
+            ]
+        },
+    })
+        options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    }
+    </script>
+<input type="button" onclick="history.back();" value="Назад"/>
+        <footer class="footer">
+        <p>&copy; ARtist 2022</p>
+      </footer>
+    </div>
+</body>
+</html>
