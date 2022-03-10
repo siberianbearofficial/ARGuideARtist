@@ -48,6 +48,13 @@ def get_markers():
     return markers_list
 
 
+def get_exhibit(eid):
+    eid -= 1
+    for mrk in get_markers():
+        if mrk['id'] == eid:
+            return dumps(mrk['info'])
+
+
 def get_list_of_markers():
     ready = list()
     for marker in get_markers():
@@ -67,6 +74,16 @@ def get_routs():
     session.close()
 
     return routs_list
+
+
+def gg_routs():
+    return dumps(get_routs())
+
+
+def get_whole_root_by_id(id_):
+    for r in get_routs():
+        if r['id'] == id_:
+            return r['routs']
 
 
 def get_navigations():

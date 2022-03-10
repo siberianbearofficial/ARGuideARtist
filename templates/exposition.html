@@ -4,20 +4,21 @@
     <a-camera zappar-camera="user-camera-mirror-mode: no-mirror"></a-camera>
 
     <a-assets id="assets_id">
-        <video id="videoFireworks" preload="auto"
-               src="https://cdn.aframe.io/videos/fireworks.mp4"
-               width="16" height="9" autoplay loop="true"
-               crossOrigin="anonymous" muted></video>
+{#        <video id="videoFireworks" preload="auto"#}
+{#               src="https://cdn.aframe.io/videos/fireworks.mp4"#}
+{#               width="16" height="9" autoplay loop="true"#}
+{#               crossOrigin="anonymous" muted></video>#}
     </a-assets>
 
     <!-- Image tracking: -->
     <a-entity zappar-image="target: /static/markers/marker1.zpt" id="my-image-tracker">
-
-        <a-entity id="galleryphoto" material="src: /static/gallery/photos/photo (1).jpg" geometry="primitive: plane; width: 11.2; height: 6.3;"
-                  position="0 0 0" rotation="0 0 0"></a-entity>
-        <a-entity id="galleryvideo" material="shader: flat; src: #videoFireworks"
-              geometry="primitive: plane; width: 11.2; height: 6.3;"
-              position="0 0 0" rotation="0 0 0" visible="true"></a-entity>
+        <a-entity id="exhibit_info" visible="true" negate="false" text="font: /static/font/21028-msdf.json; align: center; value: May 2022 be an extraordinary one.;" scale="3 3 3" position="0 0 0">
+        </a-entity>
+{#        <a-entity id="galleryphoto" material="src: /static/gallery/photos/photo (1).jpg" geometry="primitive: plane; width: 11.2; height: 6.3;"#}
+{#                  position="0 0 0" rotation="0 0 0"></a-entity>#}
+{#        <a-entity id="galleryvideo" material="shader: flat; src: #videoFireworks"#}
+{#              geometry="primitive: plane; width: 11.2; height: 6.3;"#}
+{#              position="0 0 0" rotation="0 0 0" visible="true"></a-entity>#}
         <a-entity geometry="primitive: plane; width: 0.3; height: 0.3;"
                   material="src: https://cdn.glitch.global/10b70c6a-bfb7-4913-b34c-03a8a1c5eeed/button-refresh.png?v=1641492134128; transparent: true;"
                   position="1.65 -0.5 0" data-clickable onclick="OnNextGalleryButtonClick()"></a-entity>
@@ -26,18 +27,61 @@
 
 {% block scripts %}
     <script>
-        // All routes:
-        var all_routes = null;
-        fetch("/marsh").then(function (response) {
-            return response.json();
-        }).then(function (data) {
-            console.log(data);
-            all_routes = data;
-        }).catch(function () {
-            console.log("Error");
-        });
+        var route_id = parseInt("{{ route_id }}");  // current route
+        var whole_root = "{{ whole_route }}".split("/");  // whole route
 
-        console.log(all_routes);
+        var current_point_ind = 0;  // index of current point in the whole route list
+
+        console.log("{{ whole_route }}");
+
+        getExposition(whole_root[current_point_ind]);
+
+        function getExposition(point) {
+            // Content:
+            fetch("/get_exhibit/" + point.toString()).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log(data);
+                showOverlay(data);
+            }).catch(function () {
+                console.log("Error in exhibition info downloading");
+            });
+        }
+
+        function getNavigation(pointA, pointB) {
+            // Navigation:
+            var navig = null;
+            fetch("/navigation/" + pointA.toString() + "/" + pointB.toString()).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                console.log(data);
+                navig = data;
+                showNavigation(navig);
+            }).catch(function () {
+                console.log("Error");
+            });
+        }
+
+        function showNavigation(nav) {
+
+        }
+
+        var overlay_text = document.getElementById('exhibit_info');
+
+        function showOverlay(cont) {
+            overlay_text.setAttribute('text', 'value', cont.toString());
+            console.log(cont.toString());
+        }
+
+        function onNextExhibitButtonClick() {
+            // TODO: change target!
+            current_point_ind++;
+            if (current_point_ind >= whole_root.length) {
+                alert('End of route!');
+                document.location.href = '/choose_exposition';
+            }
+            getNavigation(whole_root[current_point_ind - 1], whole_root[current_point_ind]);
+        }
     </script>
     <script>
         // Gallery:

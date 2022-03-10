@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a class="root_link" style="display: none"></a>
+<script>
+    var link_container = document.getElementsByClassName('root_link')[0];
+
+    // All routes:
+    var all_routes = null;
+    fetch("/marsh").then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        console.log(data);
+        all_routes = data;
+        processRoutes();
+    }).catch(function () {
+        console.log("Error");
+    });
+
+    function processRoutes() {
+        all_routes.forEach(function(item, _, __) {
+            let link = link_container.cloneNode();
+            link.setAttribute('style', 'display', 'inline');
+            link.setAttribute('href', '/exposition/' + item['id']);
+            link.innerHTML = item['name_routs'];
+            document.body.appendChild(link);
+            document.body.appendChild(document.createElement("br"));
+        });
+    }
+</script>
+</body>
+</html>

@@ -2,7 +2,7 @@ from flask import Flask, render_template
 import config
 from emulate_db_response import get_photos_from_db
 from data import db_session
-from one import get_markers, get_routs, get_navigations, get_navigation_r, get_naprav, get_marsh, rooms, get_list_of_markers
+from one import *
 from two import sec_exp, like_exp, pos_exp
 from json import dumps
 
@@ -88,9 +88,21 @@ def test_video_func():
     return render_template('test_video.html')
 
 
-@app.route('/exposition')
-def exposition():
-    return render_template('exposition.html')
+@app.route('/exposition/<route_id>')
+def exposition(route_id):
+    return render_template('exposition.html', route_id=int(route_id), whole_route=get_whole_root_by_id(int(route_id)))
+
+
+@app.route('/choose_exposition')
+def choose_exposition():
+    return render_template('choose_exposition.html')
+
+
+@app.route('/get_exhibit/<exhibit_id>')
+def get_exhibit_func(exhibit_id):
+    got = get_exhibit(int(exhibit_id))
+    print('GOT:', got)
+    return got
 
 
 @app.route('/get_marker')
@@ -120,7 +132,7 @@ def navigation(a, b):
 
 @app.route('/marsh')
 def marsh():
-    return get_marsh()
+    return gg_routs()
 
 
 @app.route('/admin_statistic')
