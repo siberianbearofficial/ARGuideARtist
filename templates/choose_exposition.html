@@ -81,19 +81,35 @@
 
 
 .btn{
-    background: white;
-    outline: none;
-    font-size:20px;
-    border: 1px solid #fff;
+    background: #CEF3FF;
     margin-top: 15px;
+    max-width: 720px;
+    margin-left: 50%;
+    transition-duration: 0.4s;
+    text-color: black;
+    transform: translate(-50%, 0);
+    border-radius:12px;
+    font-size:24px;
     font-family: 'Comfortaa', sans-serif;
 }
+
 .btn:link {
   color: black;
 }
 .btn:hover{
     background-color: #81D2EC;
     text-color: black;
+}
+.btn1{
+    background: white;
+    outline: none;
+    font-size:20px;
+    border: 1px solid #fff;
+    margin-top: 15px;
+    margin-left: 50%;
+    transform: translate(-50%, 0);
+    font-family: 'Comfortaa', sans-serif;
+    top:300px;
 }
 
     </style>
@@ -113,6 +129,8 @@
                 <div style="display: none">
                 <button type="button" class="btn col-12" onclick="window.location.href = '/photo_booth';" style="font-family: 'Comfortaa', sans-serif;" ></button>
                 </div>
+                <div class="line2 col-12"><u><input type="button" class="btn1 col-12" onclick="history.back();" value="Назад"/></u></div>
+
                 <!--    <a class="root_link" style="display: none"></a>-->
                 <script>
                     var link_container = document.getElementsByClassName('btn col-12')[0];
