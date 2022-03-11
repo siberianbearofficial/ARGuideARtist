@@ -259,8 +259,14 @@
         }
 
         function changeMarker() {
-            imageTracker.setAttribute('zappar-image', 'target', '/static/markers/marker5.zpt');
-            console.log('IMAGE TRACKER SHOULD BE CHANGED');
+            fetch("/get_marker_by_id/" + whole_root[current_point_ind].toString()).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                imageTracker.setAttribute('zappar-image', 'target', data.toString());
+                console.log('IMAGE TRACKER SHOULD BE CHANGED');
+            }).catch(function () {
+                console.log("Error");
+            });
         }
 
         var canChangeExhibit = false;

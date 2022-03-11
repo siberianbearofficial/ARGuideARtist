@@ -5,7 +5,7 @@ from one import *
 from two import *
 from json import dumps
 
-db_session.global_init("db/argid.sqlite")
+#db_session.global_init("db/argid.sqlite")
 app = Flask(__name__)
 app.config.from_object(config)
 
@@ -122,6 +122,11 @@ def get_exhibit_func(exhibit_id):
 @app.route('/get_marker')
 def get_marker():
     return get_list_of_markers()
+
+
+@app.route('/get_marker_by_id/<mid>')
+def get_marker_by_id(mid):
+    return get_current_marker(int(mid))
 
 
 @app.route('/testtest')
