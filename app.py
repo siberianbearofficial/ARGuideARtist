@@ -124,6 +124,11 @@ def get_marker():
     return get_list_of_markers()
 
 
+@app.route('/get_marker_by_id/<mid>')
+def get_marker_by_id(mid):
+    return get_current_marker(int(mid))
+
+
 @app.route('/testtest')
 def testtest_func():
     return render_template('testtest.html')

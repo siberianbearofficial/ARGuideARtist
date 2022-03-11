@@ -57,6 +57,13 @@ def get_exhibit(eid):
             return dumps([mrk['info'], mrk['model'], mrk['type_model']])
 
 
+def get_current_marker(mid):
+    mid -= 1
+    for mrk in get_markers():
+        if mrk['id'] == mid:
+            return dumps(mrk['marker'])
+
+
 def get_list_of_markers():
     ready = list()
     for marker in get_markers():

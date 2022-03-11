@@ -106,14 +106,14 @@ def like_exp():
                 exp8.append(result_list[5])
                 exp8.append(result_list[6])
 
-    c = {'Exp 1': (sum(exp1)/len(exp1)),
-         'Exp 2': (sum(exp2)/len(exp2)),
-         'Exp 3': (sum(exp3)/len(exp3)),
-         'Exp 4': (sum(exp4)/len(exp4)),
-         'Exp 5': (sum(exp5)/len(exp5)),
-         'Exp 6': (sum(exp6)/len(exp6)),
-         'Exp 7': (sum(exp7)/len(exp7)),
-         'Exp 8': (sum(exp8)/len(exp8))}
+    c = {'Exp 1': round((sum(exp1)/len(exp1)), 2),
+         'Exp 2': round((sum(exp2)/len(exp2)), 2),
+         'Exp 3': round((sum(exp3)/len(exp3)), 2),
+         'Exp 4': round((sum(exp4)/len(exp4)), 2),
+         'Exp 5': round((sum(exp5)/len(exp5)), 2),
+         'Exp 6': round((sum(exp6)/len(exp6)), 2),
+         'Exp 7': round((sum(exp7)/len(exp7)), 2),
+         'Exp 8': round((sum(exp8)/len(exp8)), 2)}
 
     return c
 
