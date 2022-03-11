@@ -76,31 +76,16 @@
     font-family: 'Comfortaa', cursive;
     font-weight: 900;
     font-size: 14px;
-    text-align: center;
     color: black;
 }
-.btn{
-    background: #CEF3FF;
-    margin-top: 15px;
-    max-width: 720px;
-    margin-left: 50%;
-    transition-duration: 0.4s;
-    text-color: black;
-    transform: translate(-50%, 0);
-    border-radius:12px;
-    font-size:24px;
-    font-family: 'Comfortaa', sans-serif;
-}
+
 
 .btn1{
     background: white;
-
     outline: none;
     font-size:20px;
     border: 1px solid #fff;
     margin-top: 15px;
-    margin-left: 50%;
-    transform: translate(-50%, 0);
     font-family: 'Comfortaa', sans-serif;
 }
 .btn:link {
@@ -110,28 +95,44 @@
     background-color: #81D2EC;
     text-color: black;
 }
+
 table {
-font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-text-align: left;
-border-collapse: separate;
-border-spacing: 5px;
-background: #ECE9E0;
-color: #656665;
-border: 16px solid #ECE9E0;
-border-radius: 25px;
+    font-family: 'Comfortaa', sans-serif;
+    text-align: left;
+    border-collapse: separate;
+    border-spacing: 15px;
 }
-th {
-font-size: 18px;
-padding: 10px;
+th.tab_headl {
+    font-size: 18px;
+    border-color: white;
 }
-td {
-background: #F5D7BF;
-padding: 10px;
+th.tab_headr {
+    font-size: 18px;
+    border-radius: 15px;
+    border-color: white;
+}
+.tab_left {
+    background: #CEF3FF;
+    border-radius: 15px;
+}
+.tab_right {
+    background: #8ED6FF;
+    border-radius: 15px;
 }
     </style>
 </head>
 <body>
-    <div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="head col-12">
+                <img class="logo" src="static/metric/image2.png">
+                ARtist
+            </div>
+            <div class="line col-12">
+                Статистика посещений
+            </div>
+            <div class="col-12">
+                <div>
         <script>
             var database = null;
         fetch("/statistic").then(function(response) {
@@ -150,15 +151,20 @@ padding: 10px;
             document.getElementById(103).innerHTML = database[2]["Room 3"];
         }
         </script>
-        <table>
+        <table class="col-sm-12-l-6">
             <caption>Посещение комнат</caption>
-                <tr><th>Название комнат</th><th>Количество людей в зале</th></tr>
-                <tr><td>Пейзажи</td><td id = "101"></td></tr>
-                <tr><td>Животные</td><td id = "102"></td></tr>
-                <tr><td>Традиции и обычаи коренных жителей</td><td id = "103"></td></tr>
+                <tr><th class="tab_hedl">Название комнат</th><th class="tab_hedr">Количество людей в зале</th></tr>
+                <tr><td class="tab_left">Пейзажи</td><td id = "101" class="tab_right"></td></tr>
+                <tr><td class="tab_left">Животные</td><td id = "102" class="tab_right"></td></tr>
+                <tr><td class="tab_left">Традиции и обычаи коренных жителей</td><td id = "103" class="tab_right"></td></tr>
         </table>
-        <input type="button" onclick="history.back();" value="Назад"/>
-        <p>&copy;ARtist 2022</p>
     </div>
+            <div class="line2">
+                <input type="button" class="btn1" onclick="history.back();" value="Назад"/>
+                <div class="text1">&copy; ARtist 2022</div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
