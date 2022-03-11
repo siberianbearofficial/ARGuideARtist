@@ -5,7 +5,7 @@ from one import *
 from two import *
 from json import dumps
 
-db_session.global_init("db/argid.sqlite")
+#db_session.global_init("db/argid.sqlite")
 app = Flask(__name__)
 app.config.from_object(config)
 
