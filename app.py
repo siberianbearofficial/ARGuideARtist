@@ -1,11 +1,9 @@
 from flask import Flask, render_template
 import config
 from emulate_db_response import get_photos_from_db
-from data import db_session
 from one import *
-from two import sec_exp, like_exp, pos_exp, like_exp_sr, pos_zal
+from two import *
 from json import dumps
-
 
 db_session.global_init("db/argid.sqlite")
 app = Flask(__name__)
@@ -36,13 +34,16 @@ def test_func():
 def metric_func():
     return render_template('metric.html')
 
+
 @app.route('/admin_metric')
 def admin_metric_func():
     return render_template('admin_metric.html')
 
+
 @app.route("/stars")
 def stars():
     return render_template('stars.html')
+
 
 @app.route("/admin_stars")
 def admin_stars():
@@ -53,9 +54,11 @@ def admin_stars():
 def st():
     return render_template('st.html')
 
+
 @app.route("/sta")
 def sta():
     return render_template('sta.html')
+
 
 @app.route("/zal")
 def zal():
@@ -157,14 +160,20 @@ def marsh():
 def adm_stat():
     return sec_exp()  # служебная статистка
 
+
 @app.route('/adm_str')
 def adm_str():
     return like_exp_sr()
 
+
 @app.route('/test_admin_statistic')
 def test_adm_stat():
-    a = {"Exp 1": [538, 61, 268.88146426496223],"Exp 2":[658, 122,374.86247216035633],"Exp 3": [538, 61, 266.76745329400194],"Exp 4":[538,61,264.8294342832837],"Exp 5":[539,61,271.0042656916514],"Exp 6":[659,121,378.04987320371936],"Exp 7":[659,122,384.47377326565146],"Exp 8":[539, 61, 267.6633081444165]}
+    a = {"Exp 1": [538, 61, 268.88146426496223], "Exp 2": [658, 122, 374.86247216035633],
+         "Exp 3": [538, 61, 266.76745329400194], "Exp 4": [538, 61, 264.8294342832837],
+         "Exp 5": [539, 61, 271.0042656916514], "Exp 6": [659, 121, 378.04987320371936],
+         "Exp 7": [659, 122, 384.47377326565146], "Exp 8": [539, 61, 267.6633081444165]}
     return a
+
 
 @app.route('/statistic')
 def pol_stat():
@@ -173,9 +182,12 @@ def pol_stat():
 
 @app.route('/test_statistic')
 def pol_test_stat():
-    a = {"Exp 1": 3.103234553554135, "Exp 2": 3.250556792873051, "Exp 3": 3.0658800393313665, "Exp 4": 3.4887282007656317, "Exp 5": 3.216737761527524, "Exp 6": 3.0808678500986195, "Exp 7": 2.8639570985040925, "Exp 8": 3.0848026868178002}
-    b = {"Exp 1": 1721, "Exp 2": 1796, "Exp 3": 2034, "Exp 4": 2351, "Exp 5": 1641, "Exp 6": 1183, "Exp 7": 1181, "Exp 8": 1191}
-    return dumps([a, b])# пользовательская статистика
+    a = {"Exp 1": 3.103234553554135, "Exp 2": 3.250556792873051, "Exp 3": 3.0658800393313665,
+         "Exp 4": 3.4887282007656317, "Exp 5": 3.216737761527524, "Exp 6": 3.0808678500986195,
+         "Exp 7": 2.8639570985040925, "Exp 8": 3.0848026868178002}
+    b = {"Exp 1": 1721, "Exp 2": 1796, "Exp 3": 2034, "Exp 4": 2351, "Exp 5": 1641, "Exp 6": 1183, "Exp 7": 1181,
+         "Exp 8": 1191}
+    return dumps([a, b])  # пользовательская статистика
 
 
 if __name__ == '__main__':
