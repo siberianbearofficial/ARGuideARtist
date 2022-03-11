@@ -4,16 +4,130 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- chart.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"
+     integrity="sha512-VCHVc5miKoln972iJPvkQrUYYq7XpxXzvqNfiul1H4aZDwGBGC0lq373KNleaB2LpnC2a/iNfE5zoRYmB4TRDQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
     <title>Статистика</title>
+    <style>
+        .head{
+    height: 64px;
+    top: 0px;
+    background: #52928E;
+    border-radius: 2px;
+    width: 100%;
+    height: 61px;
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 29px;
+    line-height: 27px;
+    text-align: left;
+    color: #FFFFFF;}
+
+.logo{
+    width: 98px;
+    height: 74px;
+    }
+
+.line{
+    height: 63px;
+    background: #8ED6FF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    widht: 100%;
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 60px;
+    text-align: left;
+    color: black;
+}
+.line2{
+    height: 63px;
+}
+.text{
+    width: 100%;
+    height: 61px;
+    left: 86px;
+    top: 22px;
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 29px;
+    line-height: 27px;
+    text-align: left;
+    color: #FFFFFF;
+
+}
+.text1{
+    widht: 100%;
+    margin-top:10px;
+    font-family: 'Comfortaa', cursive;
+    font-weight: 900;
+    font-size: 14px;
+    text-align: center;
+    color: black;
+}
+.btn{
+    background: #CEF3FF;
+    max-width: 720px;
+    margin-top: 15px;
+    margin-left: 50%;
+    transition-duration: 0.4s;
+    text-color: black;
+    transform: translate(-50%, 0);
+    border-radius:12px;
+    font-size:24px;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.btn1{
+    background: white;
+    outline: none;
+    font-size:20px;
+    border: 1px solid #fff;
+    margin-top: 15px;
+    margin-left: 50%;
+    transform: translate(-50%, 0);
+    font-family: 'Comfortaa', sans-serif;
+}
+.btn:link {
+  color: black;
+}
+.btn:hover{
+    background-color: #81D2EC;
+    text-color: black;
+}
+    </style>
 </head>
 <body>
-<h1>Статистика</h1>
-<button type="button" class="btn btn-dark" onclick="process(1);"><a href="/st">Посещение экспоната в секундах</a></button>
-<button type="button" class="btn btn-dark" onclick="process(2);"><a href="/admin_stars">Оценка экспонатов пользователей</a></button>
+<div class="container-fluid">
+        <div class="row">
+            <div class="head col-12">
+                <img class="logo" src="static/metric/image2.png">
+                ARtist
+            </div>
+            <div class="line col-12">
+                Служебная статистика
+            </div>
+            <div class="line2 col-12">
+                <button type="button" class="btn col-12" onclick="window.location.href = '/st';">Посещение экспоната в секундах</button>
+                <button type="button" class="btn col-12" onclick="window.location.href = '/admin_stars';">Оценка экспонатов пользователей</button>
+                <input type="button" class="btn1" onclick="history.back();" value="Назад"/>
+                <div class="text1">&copy; ARtist 2022</div>
+            </div>
+        </div>
 
-        <footer class="footer">
-        <p>&copy; ARtist 2022</p>
-      </footer>
     </div>
 </body>
 </html>
