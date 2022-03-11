@@ -115,7 +115,7 @@
                 </div>
                 <!--    <a class="root_link" style="display: none"></a>-->
                 <script>
-                    var link_container = document.getElementsByClassName('btn')[0];
+                    var link_container = document.getElementsByClassName('btn col-12')[0];
 
                     // All routes:
                     var all_routes = null;
@@ -133,8 +133,8 @@
                         all_routes.forEach(function(item, _, __) {
                             let link = link_container.cloneNode();
                             //link.setAttribute('style', 'display', 'inline');
-                            let path = '/exposition/' + item['id']
-                            link.setAttribute('onclick', 'window.location.href =' + path);
+                            let path = '/exposition/' + item['id'] + '";';
+                            link.setAttribute('onclick', 'window.location.href = "' + path);
                             link.innerHTML = item['name_routs'];
                             document.body.appendChild(link);
                             //document.body.appendChild(document.createElement("br"));

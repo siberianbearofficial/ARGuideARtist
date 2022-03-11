@@ -25,6 +25,11 @@ def hello_world():
     return render_template('home_page.html')
 
 
+@app.route('/souvenirs')
+def souvenirs():
+    return render_template('souvenirs.html')
+
+
 @app.route('/test')
 def test_func():
     return render_template('gallery.html')
