@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <!-- Camera: -->
+    <a-camera zappar-camera="user-camera-mirror-mode: no-mirror"></a-camera>
+
+    <!-- Image tracking: -->
+    <a-entity zappar-image="target: /static/markers/marker1.zpt" id="my-image-tracker">
+        <a-entity id="im" visible="true" material="src: /static/portal/portal.png; transparent: true;"
+                  geometry="primitive: plane; width: 4; height: 2.25;"
+                  scale="4 4 4" data-clickable onclick="document.location.href = '/cave';"
+                  position="0 0 0" rotation="0 0 0"></a-entity>
+    </a-entity>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+    var image = document.getElementById('im');
+        var imageTracker = document.getElementById('my-image-tracker');
+        imageTracker.addEventListener("zappar-visible", () => {
+            image.setAttribute('visible', true);
+        });
+        imageTracker.addEventListener("zappar-notvisible", () => {
+            image.setAttribute('visible', false);
+        });
+    </script>
+{% endblock %}
