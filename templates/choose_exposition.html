@@ -2,35 +2,147 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- chart.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"
+     integrity="sha512-VCHVc5miKoln972iJPvkQrUYYq7XpxXzvqNfiul1H4aZDwGBGC0lq373KNleaB2LpnC2a/iNfE5zoRYmB4TRDQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
+    <title>Статистика экспанатов</title>
+    <link href="../static/css/style.css" rel="stylesheet">
+    <style>
+.head{
+    height: 64px;
+    top: 0px;
+    background: #52928E;
+    border-radius: 2px;
+    width: 100%;
+    height: 61px;
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 29px;
+    line-height: 27px;
+    text-align: left;
+    color: #FFFFFF;}
+
+.logo{
+    width: 98px;
+    height: 74px;
+    }
+
+.line{
+    height: 63px;
+    background: #8ED6FF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    widht: 100%;
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 60px;
+    text-align: left;
+    color: black;
+}
+.line2{
+    height: 63px;
+}
+.text{
+    width: 100%;
+    height: 61px;
+    left: 86px;
+    top: 22px;
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 29px;
+    line-height: 27px;
+    text-align: left;
+    color: #FFFFFF;
+
+}
+.text1{
+    widht: 100%;
+    margin-top:10px;
+    font-family: 'Comfortaa', cursive;
+    font-weight: 900;
+    font-size: 14px;
+    color: black;
+}
+
+
+.btn{
+    background: white;
+    outline: none;
+    font-size:20px;
+    border: 1px solid #fff;
+    margin-top: 15px;
+    font-family: 'Comfortaa', sans-serif;
+}
+.btn:link {
+  color: black;
+}
+.btn:hover{
+    background-color: #81D2EC;
+    text-color: black;
+}
+
+    </style>
 </head>
 <body>
-<a class="root_link" style="display: none"></a>
-<script>
-    var link_container = document.getElementsByClassName('root_link')[0];
 
-    // All routes:
-    var all_routes = null;
-    fetch("/marsh").then(function (response) {
-        return response.json();
-    }).then(function (data) {
-        console.log(data);
-        all_routes = data;
-        processRoutes();
-    }).catch(function () {
-        console.log("Error");
-    });
+    <div class="container-fluid">
+        <div class="row">
+            <div class="head col-12">
+                <img class="logo" src="static/metric/image2.png">
+                ARtist
+            </div>
+            <div class="line col-12">
+                AR-gid
+            </div>
+            <div class="line2 col-12">
+                <div style="display: none">
+                <button type="button" class="btn col-12" onclick="window.location.href = '/photo_booth';" style="font-family: 'Comfortaa', sans-serif;" ></button>
+                </div>
+                <!--    <a class="root_link" style="display: none"></a>-->
+                <script>
+                    var link_container = document.getElementsByClassName('btn')[0];
 
-    function processRoutes() {
-        all_routes.forEach(function(item, _, __) {
-            let link = link_container.cloneNode();
-            link.setAttribute('style', 'display', 'inline');
-            link.setAttribute('href', '/exposition/' + item['id']);
-            link.innerHTML = item['name_routs'];
-            document.body.appendChild(link);
-            document.body.appendChild(document.createElement("br"));
-        });
-    }
-</script>
+                    // All routes:
+                    var all_routes = null;
+                    fetch("/marsh").then(function (response) {
+                    return response.json();
+                    }).then(function (data) {
+                    console.log(data);
+                    all_routes = data;
+                    processRoutes();
+                    }).catch(function () {
+                        console.log("Error");
+                    });
+
+                    function processRoutes() {
+                        all_routes.forEach(function(item, _, __) {
+                            let link = link_container.cloneNode();
+                            //link.setAttribute('style', 'display', 'inline');
+                            let path = '/exposition/' + item['id']
+                            link.setAttribute('onclick', 'window.location.href =' + path);
+                            link.innerHTML = item['name_routs'];
+                            document.body.appendChild(link);
+                            //document.body.appendChild(document.createElement("br"));
+                        });
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
