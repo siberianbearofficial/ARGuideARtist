@@ -17,36 +17,43 @@
     <link href="../static/css/style.css" rel="stylesheet">
     <style>
         .head{
-    position: absolute;
-    width: 1560px;
     height: 64px;
     top: 0px;
     background: #52928E;
-    border-radius: 2px;}
+    border-radius: 2px;
+    width: 100%;
+    height: 61px;
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 29px;
+    line-height: 27px;
+    text-align: left;
+    color: #FFFFFF;}
 
-.logo{position: absolute;
+.logo{
     width: 98px;
     height: 74px;
-    top:-2px;
-    background: url(static/metric/image2.png);}
+    }
 
 .line{
-    position: absolute;
-    width: 100%;
     height: 63px;
-    top: 62px;
     background: #8ED6FF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 4px;
+    widht: 100%;
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 60px;
+    text-align: left;
+    color: black;
 }
 .line2{
-    position: absolute;
-    width: 100%;
     height: 63px;
-    top: 126px;
 }
 .text{
-    position: absolute;
     width: 100%;
     height: 61px;
     left: 86px;
@@ -54,61 +61,59 @@
     font-family: 'Comfortaa', sans-serif;
     font-style: normal;
     font-weight: 900;
-    font-size: 34px;
+    font-size: 29px;
     line-height: 27px;
     text-align: left;
     color: #FFFFFF;
+
 }
 .text1{
-    position: absolute;
-    height: 100%;
+    widht: 100%;
     left: 16px;
     top: 20px;
     font-family: 'Comfortaa', sans-serif;
     font-style: normal;
     font-weight: 900;
-    font-size: 34px;
+    font-size: 24px;
     line-height: 27px;
     text-align: center;
     color: black;
 }
 .btn{
-    top: 2000px;
     background: #CEF3FF;
+    margin-top: 15px;
+    margin-left: 50%;
     transition-duration: 0.4s;
-    text-color:black;
+    text-color: black;
+    transform: translate(-50%, 0);
+    border-radius:12px;
 }
-.link:link {
+.btn:link {
   color: black;
 }
 .btn:hover{
     background-color: #81D2EC; /* Green */
-    color: white;
+    text-color: black;
 }
     </style>
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="head">
-                <div class="logo"><img class="logo" src="static/metric/image2.png"></div>
-                <div class="text">
+            <div class="head col-12">
+                <img class="logo" src="static/metric/image2.png">
                 ARtist
-                </div>
             </div>
-
-            <div class="line">
-                <div class="text1">
+            <div class="line col-12">
                 Главная страница
-                </div>
             </div>
-            <div class="line2">
-                <button type="button" class="btn" onclick="process(1);"><a class="link" href="/photo_booth">Фотобудка</a></button>
-                <button type="button" class="btn" onclick="process(2);"><a class="link" href="/test">Галерея</a></button>
-                <button type="button" class="btn" onclick="process(3);">Портал</button>
-                <button type="button" class="btn" onclick="process(4);">AR-gid</button>
-                <button type="button" class="btn" onclick="process(5);"><a class="link" href="/metric">Статистика</a></button>
-                <button type="button" class="btn" onclick="process(6);"><a class="link" href="/accaunt">Авторизоваться</a></button>
+            <div class="line2 col-12">
+                <button type="button" class="btn col-12" onclick="process(1);"><a class="link" href="/photo_booth">Фотобудка</a></button>
+                <button type="button" class="btn col-12" onclick="process(2);"><a class="link" href="/test">Галерея</a></button>
+                <button type="button" class="btn col-12" onclick="process(3);">Портал</button>
+                <button type="button" class="btn col-12" onclick="process(4);">AR-gid</button>
+                <button type="button" class="btn col-12" onclick="process(5);"><a class="link" href="/metric">Статистика</a></button>
+                <button type="button" class="btn col-12" onclick="process(6);"><a class="link" href="/accaunt">Авторизоваться</a></button>
             </div>
         </div>
     </div>
