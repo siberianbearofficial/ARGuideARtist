@@ -2,11 +2,21 @@
 <html lang="ru">
 <head>
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-  <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
 </head>
 <body>
-<a-scene>
-    <a-gltf-model src="/static/expasition/box_of_matches.gltf"></a-gltf-model>
+<a-scene renderer="colorManagement: true;">
+    <a-camera position="0 0 0"></a-camera>
+    <a-sky color="#6EBAA7"></a-sky>
+    <a-gltf-model
+            src="/static/expasition/box_of_matches.gltf"
+            position="-2 0 0"
+            scale="10 10 10">
+    </a-gltf-model>
+    <a-gltf-model
+            src="/static/expasition/teapot.glb"
+            position="2 0 0"
+            scale="0.1 0.1 0.1">
+    </a-gltf-model>
 </a-scene>
 </body>
 </html>

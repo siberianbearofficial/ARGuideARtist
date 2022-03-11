@@ -30,6 +30,16 @@ def souvenirs():
     return render_template('souvenirs.html')
 
 
+@app.route('/portal_room')
+def portal_room():
+    return render_template('portal_room.html')
+
+
+@app.route('/cave')
+def cave():
+    return render_template('cave.html')
+
+
 @app.route('/test')
 def test_func():
     return render_template('gallery.html')
